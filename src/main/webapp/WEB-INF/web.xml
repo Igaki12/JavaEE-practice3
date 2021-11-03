@@ -1,0 +1,38 @@
+<web-app>
+    <servlet>
+        <servlet-name>TicketServletMapping</servlet-name>
+        <servlet-class>servlet.TicketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TicketServletMapping</servlet-name>
+        <url-pattern>/TicketServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RegisterServletMapping</servlet-name>
+        <servlet-class>servlet.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServletMapping</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+    
+        
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+</web-app>

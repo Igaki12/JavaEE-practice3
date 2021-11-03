@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.full-page {
+  width: 100vw;
+  height: auto;
+  background-color: rgb(194, 224, 194);
+}
+
+.main-box {
+  margin: 20px auto;
+  width: 1000px;
+  display: flex;
+  justify-content: left;
+}
+.side-menu {
+  width: 300px;
+  min-height: 500px;
+  border: 3px solid rgb(103, 145, 103);
+  padding: 50px 10px;
+}
+
+.main-box > section {
+  width: 700px;
+  min-height: 500px;
+  border-top: 3px solid rgb(103, 145, 103);
+  border-right: 3px solid rgb(103, 145, 103);
+  border-bottom: 3px solid rgb(103, 145, 103);
+  padding: 50px 10px;
+}
+.register-btn {
+  text-align: right;
+  padding-right: 30px;
+}
+
+.button {
+  margin: 0 10px;
+  color: white;
+  background-color: rgb(72, 72, 214);
+  border: none;
+  border-radius: 5px;
+  padding: 3px 20px;
+}
+
+.main-box > section > table th {
+  color: white;
+  background-color: rgb(72, 72, 214);
+  padding: 5px 20px;
+  line-height: 24px;
+}
+.main-box > section > table td {
+  color: black;
+  background-color: rgb(218, 218, 248);
+  min-height: 30px;
+  padding: 2px 20px;
+}
+
+h2 {
+  text-align: center;
+}
+.register-parent {
+  border-radius: 5px;
+  margin: 0 auto;
+  width: 500px;
+  padding: 30px 10px;
+  background-color: white;
+}
+h3 {
+  margin: 0 10px;
+}
+h4 {
+  margin: 0 20px;
+}
+.checkbox {
+  margin: auto 10px auto 30px;
+  border: rgb(103, 145, 103);
+}
+.register-flex {
+  margin: 10px 20px;
+  width: 440px;
+  display: flex;
+}
+.register-flex > div {
+  width: 130px;
+  font-weight: bold;
+}
+.register-grid {
+  margin: 5px auto 5px 50px;
+  width: 440px;
+  display: grid;
+  grid-template-columns: 120px 120px 120px;
+}
+.register-grid > input {
+  margin-bottom: 7px;
+  margin-right: 10px;
+}
+.radio {
+  margin: auto 10px auto 30px;
+}
+.register-button-flex {
+  margin: 10px 20px;
+  width: 440px;
+  display: flex;
+  justify-content: right;
+}
