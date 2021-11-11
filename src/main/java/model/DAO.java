@@ -279,15 +279,10 @@ public class DAO {
 				int i6 = ps.executeUpdate();
 				
 				conn.commit();
-				System.out.println("Success_insertTable1-6" + i1+","+i3_1 + ","+i3_2 + ","+i4_1 + ","+i4_2 + ","+i4_3 + "," +i5_1 + ","+i5_2 + ","+i6);
+				System.out.println("Success_insertTable1-6:" + i1+","+i3_1 + ","+i3_2 + ","+i4_1 + ","+i4_2 + ","+i4_3 + "," +i5_1 + ","+i5_2 + ","+i6);
 				conn.close();
 				ps.close();
 				return 0;
-				
-				
-				
-				
-				
 				
 			  }catch (SQLException e) {
 				  conn.rollback();
