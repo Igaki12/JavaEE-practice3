@@ -73,7 +73,7 @@ public class DAO {
 			System.out.println(e.getMessage());
 		}
 	}
-//	ここまで動作確認済み
+
 	
 	public static void InsertTable4(Table4 t4) {
 		try {
@@ -94,6 +94,68 @@ public class DAO {
 			int i = ps.executeUpdate();
 			conn.commit();
 			System.out.println("Success_insertTable4:" + i);
+			
+			conn.close();
+			ps.close();
+			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public static void InsertTable5(Table5 t5) {
+		try {
+			Connection conn = null;
+			PreparedStatement ps = null;
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			conn = DriverManager.getConnection(path, user_id, pw);
+			conn.setAutoCommit(false);
+
+			String sql = "INSERT INTO table5(biz_id,ticket_code,type_id,type_name,type_money,cancel_type,cancel_rate) VALUES(?,?,?,?,?,?,?)";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, t5.getBiz_id());
+			ps.setString(2, t5.getTicket_code());
+			ps.setInt(3, t5.getType_id());
+			ps.setString(4, t5.getType_name());
+			ps.setInt(5, t5.getType_money());
+			ps.setInt(6, t5.getCancel_type());
+			ps.setInt(7, t5.getCancel_rate());
+			System.out.println(ps);
+			int i = ps.executeUpdate();
+			conn.commit();
+			System.out.println("Success_insertTable5:" + i);
+			
+			conn.close();
+			ps.close();
+			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+//	ここまで動作確認済み
+	
+	public static void InsertTable6(Table6 t6) {
+		try {
+			Connection conn = null;
+			PreparedStatement ps = null;
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			conn = DriverManager.getConnection(path, user_id, pw);
+			conn.setAutoCommit(false);
+
+			String sql = "INSERT INTO table6(biz_id,ticket_code,svc_id,svc_name,svc_cautions,svc_type,svc_select_type,usage_time) VALUES(?,?,?,?,?,?,?,?)";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, t6.getBiz_id());
+			ps.setString(2, t6.getTicket_code());
+			ps.setInt(3, t6.getSvc_id());
+			ps.setString(4, t6.getSvc_name());
+			ps.setString(5, t6.getSvc_cautions());
+			ps.setInt(6, t6.getSvc_type());
+			ps.setInt(7, t6.getSvc_select_type());
+			ps.setInt(8, t6.getUsage_time());
+			System.out.println(ps);
+			int i = ps.executeUpdate();
+			conn.commit();
+			System.out.println("Success_insertTable6:" + i);
 			
 			conn.close();
 			ps.close();

@@ -30,7 +30,7 @@
     <div class="register-flex"><div>重要注意事項</div><input type="text" name="cautions_text1"></div>
     <div class="register-flex"><div>チケット紹介</div><input type="text" name="contents_data2"></div>
     <div class="register-flex"><div>紹介画像</div><input type="file" name=""></div>
-    <div class="register-flex"><div>注意事項</div><input type="text" name="caution_text2"></div>
+    <div class="register-flex"><div>注意事項</div><input type="text" name="cautions_text2"></div>
     <div class="register-flex"><div>お問合せ</div><input type="text" name="ticket_remarks"></div>
     <br>
     <h3>商品設定</h3>
@@ -40,11 +40,11 @@
     <h4>料金</h4>
     <div class="register-grid">
       <div>名称１</div><div>単価１</div><div>キャンセル料１</div>
-      <input type="text" name="type_name1"required><input type="number" name="type_money1" min="0" step="10"required><input type="number" name="cancel_type1"min="0" step="10"required>
+      <input type="text" name="type_name1"required><input type="number" name="type_money1" min="0" step="10"required><input type="number" name="cancel_rate1"min="0" step="10"required>
       <div>名称２</div><div>単価２</div><div>キャンセル料２</div>
-      <input type="text" name="type_name2"required><input type="number" name="type_money2"min="0" step="10"required><input type="number" name="cancel_type2"min="0" step="10"required>
+      <input type="text" name="type_name2"required><input type="number" name="type_money2"min="0" step="10"required><input type="number" name="cancel_rate2"min="0" step="10"required>
     </div>
-    <div class="register-flex"><div>注意事項</div><input type="text" name="caution_text3"></div>
+    <div class="register-flex"><div>注意事項</div><input type="text" name="cautions_text3"></div>
     <br>
     <h3>チケット設定</h3>
     <div class="register-flex"><label><input type="radio" name="tickets_kind" class="radio" value="1">フリーチケット</label><label><input type="radio" name="tickets_kind" class="radio" value="2">指定チケット</label></div>

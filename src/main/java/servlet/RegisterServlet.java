@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.Table1;
 import model.Table3;
 import model.Table4;
+import model.Table5;
+import model.Table6;
 import model.DAO;
 
 public class RegisterServlet extends HttpServlet {
@@ -79,8 +81,73 @@ public class RegisterServlet extends HttpServlet {
 		table4.setCautions_text(request.getParameter("cautions_text1"));
 		
 		model.DAO.InsertTable4(table4);
+
+		table4 = new Table4();
+		table4.setBiz_id(1);
+		table4.setTicket_code(request.getParameter("ticket_code"));
+		table4.setCautions_type(2);
+		table4.setCautions_index(1);
+		table4.setCautions_text(request.getParameter("cautions_text2"));
+		
+		model.DAO.InsertTable4(table4);
+		
+		table4 = new Table4();
+		table4.setBiz_id(1);
+		table4.setTicket_code(request.getParameter("ticket_code"));
+		table4.setCautions_type(3);
+		table4.setCautions_index(1);
+		table4.setCautions_text(request.getParameter("cautions_text3"));
+		
+		model.DAO.InsertTable4(table4);
+		
+		Table5 table5 = new Table5();
+		table5.setBiz_id(1);
+		table5.setTicket_code(request.getParameter("ticket_code"));
+		table5.setType_id(1);
+		table5.setType_name(request.getParameter("type_name1"));
+		String type_money1 = request.getParameter("type_money1");
+		if (request.getParameter("type_money1") == null)
+			type_money1 = "0";
+		table5.setType_money(Integer.parseInt(type_money1));
+		table5.setCancel_type(1);
+		String cancel_rate1 = request.getParameter("cancel_rate1");
+		if(request.getParameter("cancel_rate1") == null)
+			cancel_rate1 = "0";
+		table5.setCancel_rate(Integer.parseInt(cancel_rate1));
+		
+		model.DAO.InsertTable5(table5);
 //	　　　　ここまで動作確認済み
 		
+		table5 = new Table5();
+		table5.setBiz_id(1);
+		table5.setTicket_code(request.getParameter("ticket_code"));
+		table5.setType_id(2);
+		table5.setType_name(request.getParameter("type_name2"));
+		String type_money2 = request.getParameter("type_money2");
+		if (request.getParameter("type_money2") == null)
+			type_money2 = "0";
+		table5.setType_money(Integer.parseInt(type_money2));
+		table5.setCancel_type(1);
+		String cancel_rate2 = request.getParameter("cancel_rate2");
+		if(request.getParameter("cancel_rate2") == null)
+			cancel_rate2 = "0";
+		table5.setCancel_rate(Integer.parseInt(cancel_rate2));
+		
+		model.DAO.InsertTable5(table5);
+		
+		Table6 table6 = new Table6();
+		table6.setBiz_id(1);
+		table6.setTicket_code(request.getParameter("ticket_code"));
+		table6.setSvc_id(1);
+		table6.setSvc_name(request.getParameter("svc_name"));
+		table6.setSvc_cautions(request.getParameter("svc_cautions"));
+		table6.setSvc_type(1);
+		String svc_select_type = request.getParameter("svc_select_type");
+		if (request.getParameter("svc_select_type") == null)
+			svc_select_type = "0";
+		table6.setSvc_select_type(Integer.parseInt(svc_select_type));
+		
+		model.DAO.InsertTable6(table6);
 		
 		
 
