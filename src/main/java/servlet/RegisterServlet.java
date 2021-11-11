@@ -51,7 +51,6 @@ public class RegisterServlet extends HttpServlet {
 		String cancel_limit = request.getParameter("cancel_limit");
 		table1.setCancel_limit(Integer.parseInt(cancel_limit));
 		
-		model.DAO.InsertTable1(table1);
 
 		Table3 table3 = new Table3();
 		table3.setBiz_id(1);
@@ -60,17 +59,15 @@ public class RegisterServlet extends HttpServlet {
 		table3.setContents_index(1);
 		table3.setContents_data(request.getParameter("contents_data1"));
 		
-		model.DAO.InsertTable3(table3);
 
 		
-		table3 = new Table3();
-		table3.setBiz_id(1);
-		table3.setTicket_code(request.getParameter("ticket_code"));
-		table3.setContents_type(2);
-		table3.setContents_index(1);
-		table3.setContents_data(request.getParameter("contents_data2"));
+		Table3 table3_2 = new Table3();
+		table3_2.setBiz_id(1);
+		table3_2.setTicket_code(request.getParameter("ticket_code"));
+		table3_2.setContents_type(2);
+		table3_2.setContents_index(1);
+		table3_2.setContents_data(request.getParameter("contents_data2"));
 		
-		model.DAO.InsertTable3(table3);
 
 		
 		Table4 table4 = new Table4();
@@ -80,25 +77,22 @@ public class RegisterServlet extends HttpServlet {
 		table4.setCautions_index(1);
 		table4.setCautions_text(request.getParameter("cautions_text1"));
 		
-		model.DAO.InsertTable4(table4);
 
-		table4 = new Table4();
-		table4.setBiz_id(1);
-		table4.setTicket_code(request.getParameter("ticket_code"));
-		table4.setCautions_type(2);
-		table4.setCautions_index(1);
-		table4.setCautions_text(request.getParameter("cautions_text2"));
+		Table4 table4_2 = new Table4();
+		table4_2.setBiz_id(1);
+		table4_2.setTicket_code(request.getParameter("ticket_code"));
+		table4_2.setCautions_type(2);
+		table4_2.setCautions_index(1);
+		table4_2.setCautions_text(request.getParameter("cautions_text2"));
 		
-		model.DAO.InsertTable4(table4);
 		
-		table4 = new Table4();
-		table4.setBiz_id(1);
-		table4.setTicket_code(request.getParameter("ticket_code"));
-		table4.setCautions_type(3);
-		table4.setCautions_index(1);
-		table4.setCautions_text(request.getParameter("cautions_text3"));
+		Table4 table4_3 = new Table4();
+		table4_3.setBiz_id(1);
+		table4_3.setTicket_code(request.getParameter("ticket_code"));
+		table4_3.setCautions_type(3);
+		table4_3.setCautions_index(1);
+		table4_3.setCautions_text(request.getParameter("cautions_text3"));
 		
-		model.DAO.InsertTable4(table4);
 		
 		Table5 table5 = new Table5();
 		table5.setBiz_id(1);
@@ -115,25 +109,22 @@ public class RegisterServlet extends HttpServlet {
 			cancel_rate1 = "0";
 		table5.setCancel_rate(Integer.parseInt(cancel_rate1));
 		
-		model.DAO.InsertTable5(table5);
-//	　　　　ここまで動作確認済み
 		
-		table5 = new Table5();
-		table5.setBiz_id(1);
-		table5.setTicket_code(request.getParameter("ticket_code"));
-		table5.setType_id(2);
-		table5.setType_name(request.getParameter("type_name2"));
+		Table5 table5_2 = new Table5();
+		table5_2.setBiz_id(1);
+		table5_2.setTicket_code(request.getParameter("ticket_code"));
+		table5_2.setType_id(2);
+		table5_2.setType_name(request.getParameter("type_name2"));
 		String type_money2 = request.getParameter("type_money2");
 		if (request.getParameter("type_money2") == null)
 			type_money2 = "0";
-		table5.setType_money(Integer.parseInt(type_money2));
-		table5.setCancel_type(1);
+		table5_2.setType_money(Integer.parseInt(type_money2));
+		table5_2.setCancel_type(1);
 		String cancel_rate2 = request.getParameter("cancel_rate2");
 		if(request.getParameter("cancel_rate2") == null)
 			cancel_rate2 = "0";
-		table5.setCancel_rate(Integer.parseInt(cancel_rate2));
+		table5_2.setCancel_rate(Integer.parseInt(cancel_rate2));
 		
-		model.DAO.InsertTable5(table5);
 		
 		Table6 table6 = new Table6();
 		table6.setBiz_id(1);
@@ -147,7 +138,13 @@ public class RegisterServlet extends HttpServlet {
 			svc_select_type = "0";
 		table6.setSvc_select_type(Integer.parseInt(svc_select_type));
 		
-		model.DAO.InsertTable6(table6);
+		int fault_flag = model.DAO.InsertTable1to6(table1, table3, table3_2, table4, table4_2, table4_3, table5, table5_2, table6);
+		if(fault_flag == 0 ) {
+			System.out.println("Success_insertAll");
+		}
+		
+		
+		
 		
 		
 
