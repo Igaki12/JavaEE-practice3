@@ -14,7 +14,6 @@ import model.Table3;
 import model.Table4;
 import model.Table5;
 import model.Table6;
-import model.DAO;
 
 public class RegisterServlet extends HttpServlet {
 	
@@ -27,8 +26,11 @@ public class RegisterServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+	  request.setCharacterEncoding("UTF-8");
 		
+	  int fault_flag = 0;
+		
+	  if(fault_flag == 0) {
 		Table1 table1 = new Table1();
 		table1.setBiz_id(1);
 		table1.setTicket_code(request.getParameter("ticket_code"));
@@ -51,8 +53,10 @@ public class RegisterServlet extends HttpServlet {
 		String cancel_limit = request.getParameter("cancel_limit");
 		table1.setCancel_limit(Integer.parseInt(cancel_limit));
 		
-		model.DAO.InsertTable1(table1);
-
+		fault_flag += model.DAO.InsertTable1(table1);
+	  }
+	  
+	  if(fault_flag == 0) {
 		Table3 table3 = new Table3();
 		table3.setBiz_id(1);
 		table3.setTicket_code(request.getParameter("ticket_code"));
@@ -60,19 +64,21 @@ public class RegisterServlet extends HttpServlet {
 		table3.setContents_index(1);
 		table3.setContents_data(request.getParameter("contents_data1"));
 		
-		model.DAO.InsertTable3(table3);
-
-		
-		table3 = new Table3();
+		fault_flag += model.DAO.InsertTable3(table3);
+	  }
+	  
+	  if (fault_flag == 0) {
+		Table3 table3 = new Table3();
 		table3.setBiz_id(1);
 		table3.setTicket_code(request.getParameter("ticket_code"));
 		table3.setContents_type(2);
 		table3.setContents_index(1);
 		table3.setContents_data(request.getParameter("contents_data2"));
 		
-		model.DAO.InsertTable3(table3);
-
-		
+		fault_flag += model.DAO.InsertTable3(table3);
+	  }
+	  
+	  if(fault_flag == 0) {		
 		Table4 table4 = new Table4();
 		table4.setBiz_id(1);
 		table4.setTicket_code(request.getParameter("ticket_code"));
@@ -80,25 +86,32 @@ public class RegisterServlet extends HttpServlet {
 		table4.setCautions_index(1);
 		table4.setCautions_text(request.getParameter("cautions_text1"));
 		
-		model.DAO.InsertTable4(table4);
-
-		table4 = new Table4();
+		fault_flag += model.DAO.InsertTable4(table4);
+	  }
+	  
+	  if(fault_flag == 0) {
+		Table4 table4 = new Table4();
 		table4.setBiz_id(1);
 		table4.setTicket_code(request.getParameter("ticket_code"));
 		table4.setCautions_type(2);
 		table4.setCautions_index(1);
 		table4.setCautions_text(request.getParameter("cautions_text2"));
 		
-		model.DAO.InsertTable4(table4);
-		
-		table4 = new Table4();
+		fault_flag += model.DAO.InsertTable4(table4);
+	  }
+	  
+	  if(fault_flag == 0) {		
+		Table4 table4 = new Table4();
 		table4.setBiz_id(1);
 		table4.setTicket_code(request.getParameter("ticket_code"));
 		table4.setCautions_type(3);
 		table4.setCautions_index(1);
 		table4.setCautions_text(request.getParameter("cautions_text3"));
 		
-		model.DAO.InsertTable4(table4);
+		fault_flag += model.DAO.InsertTable4(table4);
+	  }
+	  
+	  if (fault_flag == 0) {
 		
 		Table5 table5 = new Table5();
 		table5.setBiz_id(1);
@@ -115,10 +128,12 @@ public class RegisterServlet extends HttpServlet {
 			cancel_rate1 = "0";
 		table5.setCancel_rate(Integer.parseInt(cancel_rate1));
 		
-		model.DAO.InsertTable5(table5);
-//	　　　　ここまで動作確認済み
+		fault_flag += model.DAO.InsertTable5(table5);
+	  }
+	  
+	  if (fault_flag == 0) {
 		
-		table5 = new Table5();
+		Table5 table5 = new Table5();
 		table5.setBiz_id(1);
 		table5.setTicket_code(request.getParameter("ticket_code"));
 		table5.setType_id(2);
@@ -133,8 +148,10 @@ public class RegisterServlet extends HttpServlet {
 			cancel_rate2 = "0";
 		table5.setCancel_rate(Integer.parseInt(cancel_rate2));
 		
-		model.DAO.InsertTable5(table5);
-		
+		fault_flag += model.DAO.InsertTable5(table5);
+	  }
+	  
+	  if(fault_flag == 0) {	
 		Table6 table6 = new Table6();
 		table6.setBiz_id(1);
 		table6.setTicket_code(request.getParameter("ticket_code"));
@@ -147,7 +164,8 @@ public class RegisterServlet extends HttpServlet {
 			svc_select_type = "0";
 		table6.setSvc_select_type(Integer.parseInt(svc_select_type));
 		
-		model.DAO.InsertTable6(table6);
+		fault_flag += model.DAO.InsertTable6(table6);
+	  }
 		
 		
 

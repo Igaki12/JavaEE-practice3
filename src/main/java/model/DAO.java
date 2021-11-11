@@ -9,15 +9,16 @@ public class DAO {
 	private static String path = "jdbc:mysql://localhost:3306/ticketdb";
 	private static String user_id = "root";
 	private static String pw = "";
-	public static void InsertTable1(Table1 t1) {
-		try{
+	public static int InsertTable1(Table1 t1) {
+	  try{
 //			この部分を上位メソッド（あるいはクラス）で統合したい
-			Connection conn = null;
-			PreparedStatement ps = null;
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(path, user_id, pw);
-			conn.setAutoCommit(false);
+		  Connection conn = null;
+		  PreparedStatement ps = null;
+		  Class.forName("com.mysql.jdbc.Driver").newInstance();
+		  conn = DriverManager.getConnection(path, user_id, pw);
+		  conn.setAutoCommit(false);
 
+			try {
 			String sql = "INSERT INTO table1(biz_id,ticket_code,spot_area_id,genre_code1,genre_code2,ticket_name,ticket_remarks,tickets_kind,"
 						+ "minors_flag,cancel_flag,cancel_limit) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 			ps = conn.prepareStatement(sql);
@@ -39,21 +40,29 @@ public class DAO {
 			
 			conn.close();
 			ps.close();
+			return 0;
+			}catch (SQLException e) {
+				conn.rollback();
+				System.out.println(e.getMessage());
+				return 1;
 				
-		}catch (Exception e) {
+		  }
+		  }catch (Exception e) {
 			System.out.println(e.getMessage());
+			return 1;
 		}
 
 	}
 	
-	public static void InsertTable3(Table3 t3) {
-		try {
-			Connection conn = null;
-			PreparedStatement ps = null;
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(path, user_id, pw);
-			conn.setAutoCommit(false);
-
+	public static int InsertTable3(Table3 t3) {
+	  try {
+		  Connection conn = null;
+		  PreparedStatement ps = null;
+		  Class.forName("com.mysql.jdbc.Driver").newInstance();
+		  conn = DriverManager.getConnection(path, user_id, pw);
+		  conn.setAutoCommit(false);
+		  
+		  try {
 			String sql = "INSERT INTO table3(biz_id,ticket_code,contents_type,contents_index,contents_data) VALUES(?,?,?,?,?)";
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, t3.getBiz_id());
@@ -68,21 +77,29 @@ public class DAO {
 			
 			conn.close();
 			ps.close();
+			return 0;
+		  }catch(SQLException e) {
+			  conn.rollback();
+			  System.out.println(e.getMessage());
+			  return 1;
+		  }
 			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
+			return 1;
 		}
 	}
 
 	
-	public static void InsertTable4(Table4 t4) {
-		try {
-			Connection conn = null;
-			PreparedStatement ps = null;
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(path, user_id, pw);
-			conn.setAutoCommit(false);
-
+	public static int InsertTable4(Table4 t4) {
+	  try {
+		  Connection conn = null;
+		  PreparedStatement ps = null;
+		  Class.forName("com.mysql.jdbc.Driver").newInstance();
+		  conn = DriverManager.getConnection(path, user_id, pw);
+		  conn.setAutoCommit(false);
+		  
+		  try{
 			String sql = "INSERT INTO table4(biz_id,ticket_code,cautions_type,cautions_index,cautions_text) VALUES(?,?,?,?,?)";
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, t4.getBiz_id());
@@ -97,20 +114,28 @@ public class DAO {
 			
 			conn.close();
 			ps.close();
+			return 0;
+		  }catch (SQLException e) {
+			  conn.rollback();
+			  System.out.println(e.getMessage());
+			  return 1;
+		  }
 			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
+			return 1;
 		}
 	}
 
-	public static void InsertTable5(Table5 t5) {
-		try {
-			Connection conn = null;
-			PreparedStatement ps = null;
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(path, user_id, pw);
-			conn.setAutoCommit(false);
-
+	public static int InsertTable5(Table5 t5) {
+	  try {
+		  Connection conn = null;
+		  PreparedStatement ps = null;
+		  Class.forName("com.mysql.jdbc.Driver").newInstance();
+		  conn = DriverManager.getConnection(path, user_id, pw);
+		  conn.setAutoCommit(false);
+		  
+		  try {
 			String sql = "INSERT INTO table5(biz_id,ticket_code,type_id,type_name,type_money,cancel_type,cancel_rate) VALUES(?,?,?,?,?,?,?)";
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, t5.getBiz_id());
@@ -127,20 +152,29 @@ public class DAO {
 			
 			conn.close();
 			ps.close();
+			return 0;
+		  }catch (SQLException e) {
+			  conn.rollback();
+			  System.out.println(e.getMessage());
+			  return 1;
+		  }
 			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
+			return 1;
 		}
 	}
 //	ここまで動作確認済み
 	
-	public static void InsertTable6(Table6 t6) {
-		try {
-			Connection conn = null;
-			PreparedStatement ps = null;
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(path, user_id, pw);
-			conn.setAutoCommit(false);
+	public static int InsertTable6(Table6 t6) {
+	  try {
+		  Connection conn = null;
+		  PreparedStatement ps = null;
+		  Class.forName("com.mysql.jdbc.Driver").newInstance();
+		  conn = DriverManager.getConnection(path, user_id, pw);
+		  conn.setAutoCommit(false);
+		  
+		  try {
 
 			String sql = "INSERT INTO table6(biz_id,ticket_code,svc_id,svc_name,svc_cautions,svc_type,svc_select_type,usage_time) VALUES(?,?,?,?,?,?,?,?)";
 			ps = conn.prepareStatement(sql);
@@ -159,9 +193,16 @@ public class DAO {
 			
 			conn.close();
 			ps.close();
+			return 0;
+		  }catch (SQLException e) {
+			  conn.rollback();
+			  System.out.println(e.getMessage());
+			  return 1;
+		  }
 			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
+			return 1;
 		}
 	}
 }
