@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,17 +36,17 @@ public class RegisterServlet extends HttpServlet {
 		table1.setTicket_code(request.getParameter("ticket_code"));
 		table1.setSpot_area_id(1);
 		table1.setGenre_code1(request.getParameter("genre_code1"));
-		if(request.getParameter("genre_code1") == null)
+		if(request.getParameter("genre_code1") == "")
 			table1.setGenre_code1("0");
 		table1.setGenre_code2(request.getParameter("genre_code2"));
-		if(request.getParameter("genre_code2") == null)
+		if(request.getParameter("genre_code2") == "")
 			table1.setGenre_code2("0");
 		table1.setTicket_name(request.getParameter("ticket_name"));
 		table1.setTicket_remarks(request.getParameter("ticket_remarks"));
 		String tickets_kind = request.getParameter("tickets_kind");
 		table1.setTickets_kind(Integer.parseInt(tickets_kind));
 		String minors_flag = request.getParameter("minors_flag");
-		if(request.getParameter("minors_flag") == null)
+		if(request.getParameter("minors_flag") == "")
 			minors_flag = "0";
 		table1.setMinors_flag(Integer.parseInt(minors_flag));
 		table1.setCancel_flag(1);
@@ -94,37 +96,42 @@ public class RegisterServlet extends HttpServlet {
 		table4_3.setCautions_text(request.getParameter("cautions_text3"));
 		
 		
+		
+		List<Table5> list5 = new ArrayList<Table5>();
+		
 		Table5 table5 = new Table5();
 		table5.setBiz_id(1);
 		table5.setTicket_code(request.getParameter("ticket_code"));
 		table5.setType_id(1);
 		table5.setType_name(request.getParameter("type_name1"));
 		String type_money1 = request.getParameter("type_money1");
-		if (request.getParameter("type_money1") == null)
+		if (request.getParameter("type_money1") == "")
 			type_money1 = "0";
 		table5.setType_money(Integer.parseInt(type_money1));
 		table5.setCancel_type(1);
 		String cancel_rate1 = request.getParameter("cancel_rate1");
-		if(request.getParameter("cancel_rate1") == null)
+		if(request.getParameter("cancel_rate1") == "")
 			cancel_rate1 = "0";
 		table5.setCancel_rate(Integer.parseInt(cancel_rate1));
+		list5.add(table5);
 		
-		
-		Table5 table5_2 = new Table5();
-		table5_2.setBiz_id(1);
-		table5_2.setTicket_code(request.getParameter("ticket_code"));
-		table5_2.setType_id(2);
-		table5_2.setType_name(request.getParameter("type_name2"));
+		if (request.getParameter("type_name2") != "") {
+		table5 = new Table5();
+		table5.setBiz_id(1);
+		table5.setTicket_code(request.getParameter("ticket_code"));
+		table5.setType_id(2);
+		table5.setType_name(request.getParameter("type_name2"));
 		String type_money2 = request.getParameter("type_money2");
-		if (request.getParameter("type_money2") == null)
+		if (request.getParameter("type_money2") == "")
 			type_money2 = "0";
-		table5_2.setType_money(Integer.parseInt(type_money2));
-		table5_2.setCancel_type(1);
+		table5.setType_money(Integer.parseInt(type_money2));
+		table5.setCancel_type(1);
 		String cancel_rate2 = request.getParameter("cancel_rate2");
-		if(request.getParameter("cancel_rate2") == null)
+		if(request.getParameter("cancel_rate2") == "")
 			cancel_rate2 = "0";
-		table5_2.setCancel_rate(Integer.parseInt(cancel_rate2));
-		
+		table5.setCancel_rate(Integer.parseInt(cancel_rate2));
+		list5.add(table5);
+		}
 		
 		Table6 table6 = new Table6();
 		table6.setBiz_id(1);
@@ -134,11 +141,11 @@ public class RegisterServlet extends HttpServlet {
 		table6.setSvc_cautions(request.getParameter("svc_cautions"));
 		table6.setSvc_type(1);
 		String svc_select_type = request.getParameter("svc_select_type");
-		if (request.getParameter("svc_select_type") == null)
+		if (request.getParameter("svc_select_type") == "")
 			svc_select_type = "0";
 		table6.setSvc_select_type(Integer.parseInt(svc_select_type));
 		
-		int fault_flag = model.DAO.InsertTable1to6(table1, table3, table3_2, table4, table4_2, table4_3, table5, table5_2, table6);
+		int fault_flag = model.DAO.InsertTable1to6(table1, table3, table3_2, table4, table4_2, table4_3,list5, table6);
 		if(fault_flag == 0 ) {
 			System.out.println("Success_insertAll");
 		}

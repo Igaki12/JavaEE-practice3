@@ -42,10 +42,22 @@
       <div>名称１</div><div>単価１</div><div>キャンセル料１</div>
       <input type="text" name="type_name1"required><input type="number" name="type_money1" min="0" step="10"required><input type="number" name="cancel_rate1"min="0" step="10"required>
       <div>名称２</div><div>単価２</div><div>キャンセル料２</div>
-      <input type="text" name="type_name2"required><input type="number" name="type_money2"min="0" step="10"required><input type="number" name="cancel_rate2"min="0" step="10"required>
+      <input type="text" name="type_name2"><input type="number" name="type_money2" min="0" step="10"><input type="number" name="cancel_rate2" min="0" step="10">
+      <button class="button" type="button" name="add-btn" onclick="add()">追加</button>
+      <script>
+      function add() {
+    	  let type = '<div>名称３</div><div>単価３</div><div>キャンセル料３</div>' 
+    	      + '<input type="text" name="type_name3"><input type="number" name="type_money3" min="0" step="10"><input type="number" name="cancel_rate3" min="0" step="10">'
+    	  let type = '<div>名称４</div><div>単価４</div><div>キャンセル料４</div>' 
+        	  + '<input type="text" name="type_name4"><input type="number" name="type_money4" min="0" step="10"><input type="number" name="cancel_rate4" min="0" step="10">'
+              
+    	  document.write(type);
+      }
+      </script>
     </div>
-    <div class="register-flex"><div>注意事項</div><input type="text" name="cautions_text3"></div>
+    
     <br>
+    <div class="register-flex"><div>注意事項</div><input type="text" name="cautions_text3"></div>
     <h3>チケット設定</h3>
     <div class="register-flex"><label><input type="radio" name="tickets_kind" class="radio" value="1">フリーチケット</label><label><input type="radio" name="tickets_kind" class="radio" value="2">指定チケット</label></div>
     <br>
@@ -58,11 +70,14 @@
     <div class="register-button-flex">
       <button class="button" type="submit" name="submit-btn" method="post">登録する</button>
       <button class="button" type="button" name="return-btn" onclick="location.href='<%=pTicket %>'">戻る</button>
+      
     </div>
     
   </form>
   
+  
 
 </div>
+
 </body>
 </html>

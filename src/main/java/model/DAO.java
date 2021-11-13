@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.List;
 import java.sql.*;
 import model.Table1;
 
@@ -165,7 +166,7 @@ public class DAO {
 		}
 	}
 	
-	public static int InsertTable1to6(Table1 t1, Table3 t3_1,Table3 t3_2,Table4 t4_1,Table4 t4_2,Table4 t4_3,Table5 t5_1,Table5 t5_2, Table6 t6) {
+	public static int InsertTable1to6(Table1 t1, Table3 t3_1,Table3 t3_2,Table4 t4_1,Table4 t4_2,Table4 t4_3,List<Table5> list5, Table6 t6) {
 		try {
 			  Connection conn = null;
 			  PreparedStatement ps = null;
@@ -241,29 +242,23 @@ public class DAO {
 				System.out.println(ps);
 				int i4_3 = ps.executeUpdate();
 				
-				sql = "INSERT INTO table5(biz_id,ticket_code,type_id,type_name,type_money,cancel_type,cancel_rate) VALUES(?,?,?,?,?,?,?)";
-				ps = conn.prepareStatement(sql);
-				ps.setInt(1, t5_1.getBiz_id());
-				ps.setString(2, t5_1.getTicket_code());
-				ps.setInt(3, t5_1.getType_id());
-				ps.setString(4, t5_1.getType_name());
-				ps.setInt(5, t5_1.getType_money());
-				ps.setInt(6, t5_1.getCancel_type());
-				ps.setInt(7, t5_1.getCancel_rate());
-				System.out.println(ps);
-				int i5_1 = ps.executeUpdate();
+				int i5 = 0;
 				
-				sql = "INSERT INTO table5(biz_id,ticket_code,type_id,type_name,type_money,cancel_type,cancel_rate) VALUES(?,?,?,?,?,?,?)";
-				ps = conn.prepareStatement(sql);
-				ps.setInt(1, t5_2.getBiz_id());
-				ps.setString(2, t5_2.getTicket_code());
-				ps.setInt(3, t5_2.getType_id());
-				ps.setString(4, t5_2.getType_name());
-				ps.setInt(5, t5_2.getType_money());
-				ps.setInt(6, t5_2.getCancel_type());
-				ps.setInt(7, t5_2.getCancel_rate());
-				System.out.println(ps);
-				int i5_2 = ps.executeUpdate();
+				for (Table5 t5 : list5) {
+					sql = "INSERT INTO table5(biz_id,ticket_code,type_id,type_name,type_money,cancel_type,cancel_rate) VALUES(?,?,?,?,?,?,?)";
+					ps = conn.prepareStatement(sql);
+					ps.setInt(1, t5.getBiz_id());
+					ps.setString(2, t5.getTicket_code()); 
+					ps.setInt(3, t5.getType_id());
+					ps.setString(4, t5.getType_name());
+					ps.setInt(5, t5.getType_money());
+					ps.setInt(6, t5.getCancel_type());
+					ps.setInt(7, t5.getCancel_rate());
+					System.out.println(ps);
+					i5 = ps.executeUpdate();
+				}
+				
+				
 				
 				sql = "INSERT INTO table6(biz_id,ticket_code,svc_id,svc_name,svc_cautions,svc_type,svc_select_type,usage_time) VALUES(?,?,?,?,?,?,?,?)";
 				ps = conn.prepareStatement(sql);
@@ -279,7 +274,7 @@ public class DAO {
 				int i6 = ps.executeUpdate();
 				
 				conn.commit();
-				System.out.println("Success_insertTable1-6:" + i1+","+i3_1 + ","+i3_2 + ","+i4_1 + ","+i4_2 + ","+i4_3 + "," +i5_1 + ","+i5_2 + ","+i6);
+				System.out.println("Success_insertTable1-6:" + i1+","+i3_1 + ","+i3_2 + ","+i4_1 + ","+i4_2 + ","+i4_3 + "," +i5 + ","+i6);
 				conn.close();
 				ps.close();
 				return 0;
