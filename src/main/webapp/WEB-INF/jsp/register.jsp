@@ -40,11 +40,11 @@
     <div class="register-flex"><div>キャンセル料発生期限(分)</div><input type="number" name="cancel_limit"></div>
     <h4>料金</h4>
     <div class="register-grid" id="grid">
-      <div>名称１</div><div>単価１</div><div>キャンセル料１</div>
+      <div>名称1</div><div>単価1</div><div>キャンセル料1</div>
       <input type="text" name="type_name1"><input type="number" name="type_money1" min="0" step="10"><input type="number" name="cancel_rate1"min="0" step="10">
-      <div>名称２</div><div>単価２</div><div>キャンセル料２</div>
-      <input type="text" name="type_name2"><input type="number" name="type_money2" min="0" step="10"><input type="number" name="cancel_rate2" min="0" step="10">
-      <button class="button" type="button" name="add_btn" onclick="return add();">追加</button>
+      <div>名称2</div><div>単価2</div><div>キャンセル料2</div>
+      <input type="text" name="type_name2"><input type="number" name="type_money2" min="0" step="10"><input type="number" name="cancel_rate2" min="0" step="10" id="cancel_rate2">
+      <button class="button" type="button" id="addButton" onclick="return add();">↓追加</button>
     </div>
     
     <br>

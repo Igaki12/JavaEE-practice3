@@ -266,7 +266,7 @@ public class DAO {
 					ps.setInt(6, t5.getCancel_type());
 					ps.setInt(7, t5.getCancel_rate());
 					System.out.println(ps);
-					i5 = ps.executeUpdate();
+					i5 += ps.executeUpdate();
 				}
 				
 				

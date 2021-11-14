@@ -115,22 +115,27 @@ public class RegisterServlet extends HttpServlet {
 		table5.setCancel_rate(Integer.parseInt(cancel_rate1));
 		list5.add(table5);
 		
-		if (request.getParameter("type_name2") != "") {
+		int i = 2;
+		while (request.getParameter("type_name" + i) != null && request.getParameter("type_name" + i) != "") {
 		table5 = new Table5();
+		String type_money2 = null;
+		String cancel_rate2 = null;
 		table5.setBiz_id(1);
 		table5.setTicket_code(request.getParameter("ticket_code"));
-		table5.setType_id(2);
-		table5.setType_name(request.getParameter("type_name2"));
-		String type_money2 = request.getParameter("type_money2");
-		if (request.getParameter("type_money2") == "")
+		table5.setType_id(i);
+		table5.setType_name(request.getParameter("type_name" + i));
+		System.out.println(request.getParameter("type_money" + i));
+		type_money2 = request.getParameter("type_money" + i);
+		if (request.getParameter("type_money" + i) == "")
 			type_money2 = "0";
 		table5.setType_money(Integer.parseInt(type_money2));
 		table5.setCancel_type(1);
-		String cancel_rate2 = request.getParameter("cancel_rate2");
-		if(request.getParameter("cancel_rate2") == "")
+		cancel_rate2 = request.getParameter("cancel_rate" + i);
+		if(request.getParameter("cancel_rate" + i) == "")
 			cancel_rate2 = "0";
 		table5.setCancel_rate(Integer.parseInt(cancel_rate2));
 		list5.add(table5);
+		i += 1;
 		}
 		
 		Table6 table6 = new Table6();
