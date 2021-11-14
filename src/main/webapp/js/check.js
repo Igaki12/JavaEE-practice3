@@ -37,13 +37,10 @@ function check() {
 	}if(formElements.svc_cautions.value == ""){
 		alertMsg += "サービス注意事項を入力してください\n";
 		fault_flag += 1;
-	}
-	
+	}	
 	if(alertMsg != ""){
 		alert(alertMsg);
-	}
-	
-	
+	}	
 	if(fault_flag == 0){
 		return true;
 	}
@@ -56,13 +53,11 @@ function check() {
 function add(){
 
 	let addButton = document.getElementById("addButton");
-	alert (addButton == null );
 	
 	let h = '<div>名称'+boxNumber+'</div><div>単価'+boxNumber+'</div><div>キャンセル料'+boxNumber+'</div><input type="text" name="type_name'+boxNumber+'"><input type="number" name="type_money'+boxNumber+'" min="0" step="10"><input type="number" name="cancel_rate'+boxNumber+'" min="0" step="10" id="cancel_rate'+boxNumber+'">'
 	
 	addButton.insertAdjacentHTML('beforebegin',h);
 	boxNumber = boxNumber + 1;
-	alert(boxNumber);
 	
 	return true;
 } 
