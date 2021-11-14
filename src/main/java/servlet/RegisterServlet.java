@@ -36,17 +36,17 @@ public class RegisterServlet extends HttpServlet {
 		table1.setTicket_code(request.getParameter("ticket_code"));
 		table1.setSpot_area_id(1);
 		table1.setGenre_code1(request.getParameter("genre_code1"));
-		if(request.getParameter("genre_code1") == "")
+		if(request.getParameter("genre_code1") == null)
 			table1.setGenre_code1("0");
 		table1.setGenre_code2(request.getParameter("genre_code2"));
-		if(request.getParameter("genre_code2") == "")
+		if(request.getParameter("genre_code2") == null)
 			table1.setGenre_code2("0");
 		table1.setTicket_name(request.getParameter("ticket_name"));
 		table1.setTicket_remarks(request.getParameter("ticket_remarks"));
 		String tickets_kind = request.getParameter("tickets_kind");
 		table1.setTickets_kind(Integer.parseInt(tickets_kind));
 		String minors_flag = request.getParameter("minors_flag");
-		if(request.getParameter("minors_flag") == "")
+		if(request.getParameter("minors_flag") == null)
 			minors_flag = "0";
 		table1.setMinors_flag(Integer.parseInt(minors_flag));
 		table1.setCancel_flag(1);

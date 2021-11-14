@@ -1,7 +1,5 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.List;
 import java.sql.*;
 import model.Table1;
@@ -10,15 +8,29 @@ public class DAO {
 	private static String path = "jdbc:mysql://localhost:3306/ticketdb";
 	private static String user_id = "root";
 	private static String pw = "";
+	
+	public static Object Connect() {
+		try {Connection conn = null;
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		conn = DriverManager.getConnection(path, user_id, pw);
+		conn.setAutoCommit(false);
+		return conn;
+		}catch (Exception e) {
+			return null;
+		}
+		
+		
+	}
+	
+	
+	
 	public static void InsertTable1(Table1 t1) {
+		
+		Connection conn = (Connection) Connect();
 		try{
 //			この部分を上位メソッド（あるいはクラス）で統合したい
-			Connection conn = null;
-			PreparedStatement ps = null;
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(path, user_id, pw);
-			conn.setAutoCommit(false);
 
+			PreparedStatement ps = null;
 			String sql = "INSERT INTO table1(biz_id,ticket_code,spot_area_id,genre_code1,genre_code2,ticket_name,ticket_remarks,tickets_kind,"
 						+ "minors_flag,cancel_flag,cancel_limit) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 			ps = conn.prepareStatement(sql);
@@ -167,14 +179,13 @@ public class DAO {
 	}
 	
 	public static int InsertTable1to6(Table1 t1, Table3 t3_1,Table3 t3_2,Table4 t4_1,Table4 t4_2,Table4 t4_3,List<Table5> list5, Table6 t6) {
+		
+		Connection conn = (Connection)Connect();
 		try {
-			  Connection conn = null;
-			  PreparedStatement ps = null;
-			  Class.forName("com.mysql.jdbc.Driver").newInstance();
-			  conn = DriverManager.getConnection(path, user_id, pw);
-			  conn.setAutoCommit(false);
 			  
 			  try {
+				  PreparedStatement ps = null;
+				  
 				  String sql = "INSERT INTO table1(biz_id,ticket_code,spot_area_id,genre_code1,genre_code2,ticket_name,ticket_remarks,tickets_kind,"
 							+ "minors_flag,cancel_flag,cancel_limit) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 				ps = conn.prepareStatement(sql);
