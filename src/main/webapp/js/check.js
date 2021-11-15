@@ -62,6 +62,9 @@ function add(){
 } 
 function deleteElements() {
 	
+	if(boxNumber < 2 ){
+		return;
+	}
 	let latestLabels = document.getElementsByClassName('type' + boxNumber);
 	latestLabels.item(0).remove();
 	latestLabels.item(0).remove();
