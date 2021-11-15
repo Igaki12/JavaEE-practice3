@@ -42,9 +42,11 @@
     <div class="register-grid" id="grid">
       <div>名称1</div><div>単価1</div><div>キャンセル料1</div>
       <input type="text" name="type_name1"><input type="number" name="type_money1" min="0" step="10"><input type="number" name="cancel_rate1"min="0" step="10">
-      <div>名称2</div><div>単価2</div><div>キャンセル料2</div>
+      <div class="type2">名称2</div><div class="type2">単価2</div><div class="type2">キャンセル料2</div>
       <input type="text" name="type_name2"><input type="number" name="type_money2" min="0" step="10"><input type="number" name="cancel_rate2" min="0" step="10" id="cancel_rate2">
       <button class="button" type="button" id="addButton" onclick="return add();">↓追加</button>
+      <div></div>
+      <button class="button" type="button" id="deleteButton" onclick="return deleteElements();">↑削除</button>
     </div>
     
     <br>

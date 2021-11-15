@@ -17,6 +17,16 @@
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>RegisterDateServletMapping</servlet-name>
+        <servlet-class>servlet.RegisterDateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterDateServletMapping</servlet-name>
+        <url-pattern>/RegisterDate</url-pattern>
+    </servlet-mapping>
+    
+    
         
     
     

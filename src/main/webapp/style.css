@@ -6,8 +6,15 @@
 
 .full-page {
   width: 100vw;
+  min-height: 100vw;
   height: auto;
   background-color: rgb(194, 224, 194);
+}
+.full-page-mini {
+  width: 100vw;
+  height: 100vw;
+  background-color: rgb(194, 224, 194);
+  padding-top: 50px;
 }
 
 .main-box {
@@ -97,6 +104,9 @@ h4 {
   margin-bottom: 7px;
   margin-right: 10px;
 }
+.register-grid > button {
+  grid-column: 3/4;
+}
 .radio {
   margin: auto 10px auto 30px;
 }
@@ -105,4 +115,7 @@ h4 {
   width: 440px;
   display: flex;
   justify-content: right;
+}
+.select-box {
+	margin: 10px auto 10px 20px;
 }
