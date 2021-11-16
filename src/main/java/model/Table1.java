@@ -17,8 +17,8 @@ public class Table1 implements Serializable {
 	private int minors_flag = 0;
 	private int cancel_flag = 0;
 	private int cancel_limit = 0;
-	private Date created_at;
-	private Date updated_at;
+	private String created_at;
+	private String updated_at;
 	
 	public int getSpot_area_id() {
 		return spot_area_id;
@@ -44,19 +44,19 @@ public class Table1 implements Serializable {
 		this.cancel_flag = cancel_flag;
 	}
 
-	public Date getCreated_at() {
+	public String getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Date created_at) {
+	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
 	}
 
-	public Date getUpdated_at() {
+	public String getUpdated_at() {
 		return updated_at;
 	}
 
-	public void setUpdated_at(Date updated_at) {
+	public void setUpdated_at(String updated_at) {
 		this.updated_at = updated_at;
 	}
 

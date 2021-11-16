@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.io.*" import="model.Ticket" %>
-<%File f = new File("/RegisterServlet");
-   String path = f.getName(); %>
+<%File fR = new File("/RegisterServlet");
+   String pRegister = fR.getName(); 
+   File fD = new File("/RegisterDate");
+   String pDate = fD.getName();
+   %>
 <%
 String ticket_code = "";
 String ticket_name = "";
@@ -25,9 +28,12 @@ if(t != null) {
 </head>
 <body>
   <div class="main-box">
-    <div class="side-menu">チケット登録</div>
+    <div class="side-menu">
+      <p>チケット登録</p>
+      <a href="<%=pDate %>">期間販売登録</a>
+    </div>
     <section>
-      <form action="<%=path %>" class="register-btn" method="get">
+      <form action="<%=pRegister %>" class="register-btn" method="get">
         <button class="button" type="submit" value="新規" >新規登録</button>
       </form>
       <table>
