@@ -28,7 +28,7 @@ if(t1.getTickets_kind() == 1){
   <div class="full-page">
     <h2>フリーチケット登録</h2>
     <form class="registerDate-parent" action="<%=pTicket %>?kind=1" method="post" name="form">
-        <div class="register-flex"><h4>チケット番号</h4><p><%=t1.getTicket_code() %></p></div>
+        <div class="register-flex"><h4>商品番号</h4><p><%=t1.getTicket_code() %></p></div>
         <div class="register-flex"><h4>チケット販売種類</h4><p><%=tickets_kind %></p></div>
         <div class="register-flex"><h4>サービス</h4><p><%=t6.getSvc_name() %></p></div>
         <br>

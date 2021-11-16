@@ -30,7 +30,6 @@ public class TicketServlet extends HttpServlet {
 		String kind = request.getParameter("kind");
 		HttpSession session = request.getSession();
 		Table1 t1 = (Table1)session.getAttribute("Table1");
-		System.out.println("t1.getTicketcode:" + t1.getTicket_code());
 		Table2 t2 = new Table2();
 		Table7 t7 = new Table7();
 				
@@ -46,15 +45,17 @@ public class TicketServlet extends HttpServlet {
 			String ticket_min_num = request.getParameter("ticket_min_num");
 			String ticket_max_num = request.getParameter("ticket_max_num");
 			
+			int sales_id = 1 + model.DAO.CountTable2ByTicketCode(t1.getTicket_code());
+			
 			t2.setSales_interval_start(sales_interval_startDay + " " + sales_interval_startTime + ":00");
 			t2.setSales_interval_end(sales_interval_endDay + " " + sales_interval_endTime + ":00");
 			t2.setBiz_id(1);
 			t2.setTicket_code(t1.getTicket_code());
-			t2.setSales_id(1);
+			t2.setSales_id(sales_id);
 			
 			t7.setBiz_id(1);
 			t7.setTicket_code(t1.getTicket_code());
-			t7.setSales_id(1);
+			t7.setSales_id(sales_id);
 			t7.setTicket_interval_start(ticket_interval_start + " 00:00:00");
 			t7.setTicket_interval_end(ticket_interval_end + " 00:00:00");
 			t7.setTicket_days(0);
@@ -79,7 +80,7 @@ public class TicketServlet extends HttpServlet {
 			
 			int sales_id = 1 + model.DAO.CountTable2ByTicketCode(t1.getTicket_code());
 			try{
-				ticket_interval_endDay = model.CalendarCuliculator.AddDaysTostrDate(Integer.parseInt(ticket_days), ticket_interval_startDay);
+				ticket_interval_endDay = model.CalendarCuliculator.AddDaysTostrDate(Integer.parseInt(ticket_days),ticket_interval_startDay);
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -94,7 +95,7 @@ public class TicketServlet extends HttpServlet {
 			t7.setBiz_id(1);
 			t7.setTicket_code(t1.getTicket_code());
 			t7.setSales_id(sales_id);
-   		    t7.setTicket_interval_start(ticket_interval_endDay +" 00:00:00");
+   		    t7.setTicket_interval_start(ticket_interval_startDay +" 00:00:00");
    		    t7.setTicket_interval_end(ticket_interval_endDay + " 00:00:00");
    		    t7.setTicket_days(Integer.parseInt(ticket_days));
    		    t7.setTicket_num(Integer.parseInt(ticket_num));
@@ -104,7 +105,6 @@ public class TicketServlet extends HttpServlet {
    		    int fault_flag = model.DAO.InsertTable27(t2, t7);
 			
 		}
-		System.out.println("checkpoint2:ticketServlet108");
 		session.removeAttribute("Table1");
 		File f = new File("/WEB-INF/jsp/tickets.jsp");
 		String path = f.getPath();

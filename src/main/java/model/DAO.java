@@ -36,6 +36,7 @@ public class DAO {
 				System.out.print(rs.getInt("id") + " ");
 				count += 1;
 			}
+			System.out.println(count + ":" + ps);
 			rs.close();
 			ps.close();
 			conn.close();
