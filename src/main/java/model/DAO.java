@@ -21,6 +21,37 @@ public class DAO {
 		}
 	}
 	
+	public static List<Table2> SelectAllOfTable2() {
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Table2> list = new ArrayList<Table2>();
+		try {
+			String sql = "SELECT * FROM Table2";
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Table2 t2 = new Table2();
+				t2.setId(rs.getInt("id"));
+				t2.setBiz_id(rs.getInt("biz_id"));
+				t2.setTicket_code(rs.getString("ticket_code"));
+				t2.setSales_interval_start(rs.getString("sales_interval_start"));
+				t2.setSales_interval_end(rs.getString("sales_interval_end"));
+				list.add(t2);
+			}
+			System.out.println(ps);
+			rs.close();
+			ps.close();
+			conn.close();
+			return list;
+			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
 	public static int CountTable2ByTicketCode(String ticket_code) {
 		Connection conn = (Connection)Connect();
 		PreparedStatement ps = null;
@@ -97,6 +128,38 @@ public class DAO {
 			t1.setTickets_kind(rs.getInt("tickets_kind"));
 			t1.setCreated_at(rs.getString("created_at"));
 			t1.setUpdated_at(rs.getString("updated_at"));
+			
+			rs.close();
+			ps.close();
+			conn.close();
+			return t1;
+					
+		}catch ( Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	public static Table1 SelectTable1ByBiz_idTicket_code(int biz_id ,String ticket_code) {
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM Table1 WHERE biz_id=? AND ticket_code=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, biz_id);
+			ps.setString(2, ticket_code);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			
+			rs.next();
+				Table1 t1 = new Table1();
+			    t1.setId(rs.getInt("id"));
+			    t1.setBiz_id(rs.getInt("biz_id"));
+			    t1.setTicket_code(rs.getString("ticket_code"));
+			    t1.setTickets_kind(rs.getInt("tickets_kind"));
+			    t1.setTicket_name(rs.getString("ticket_name"));
+			    t1.setCreated_at(rs.getString("created_at"));
+			    t1.setUpdated_at(rs.getString("updated_at"));
 			
 			rs.close();
 			ps.close();

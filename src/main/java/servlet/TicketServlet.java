@@ -57,7 +57,7 @@ public class TicketServlet extends HttpServlet {
 			t7.setTicket_code(t1.getTicket_code());
 			t7.setSales_id(sales_id);
 			t7.setTicket_interval_start(ticket_interval_start + " 00:00:00");
-			t7.setTicket_interval_end(ticket_interval_end + " 00:00:00");
+			t7.setTicket_interval_end(ticket_interval_end + " 23:59:59");
 			t7.setTicket_days(0);
 			t7.setTicket_num(Integer.parseInt(ticket_num));
 			t7.setTicket_min_num(Integer.parseInt(ticket_min_num));
@@ -80,7 +80,7 @@ public class TicketServlet extends HttpServlet {
 			
 			int sales_id = 1 + model.DAO.CountTable2ByTicketCode(t1.getTicket_code());
 			try{
-				ticket_interval_endDay = model.CalendarCuliculator.AddDaysTostrDate(Integer.parseInt(ticket_days),ticket_interval_startDay);
+				ticket_interval_endDay = model.CalendarCuliculator.AddDaysToStrDate(Integer.parseInt(ticket_days),ticket_interval_startDay);
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -96,7 +96,7 @@ public class TicketServlet extends HttpServlet {
 			t7.setTicket_code(t1.getTicket_code());
 			t7.setSales_id(sales_id);
    		    t7.setTicket_interval_start(ticket_interval_startDay +" 00:00:00");
-   		    t7.setTicket_interval_end(ticket_interval_endDay + " 00:00:00");
+   		    t7.setTicket_interval_end(ticket_interval_endDay + " 23:59:59");
    		    t7.setTicket_days(Integer.parseInt(ticket_days));
    		    t7.setTicket_num(Integer.parseInt(ticket_num));
    		    t7.setTicket_min_num(Integer.parseInt(ticket_min_num));

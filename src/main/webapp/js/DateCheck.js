@@ -1,7 +1,7 @@
 function checkSelectBox(){
 	let selectBox = document.getElementsByTagName("select").item(0);
-	let selectedIndex = selectBox.options.selectedIndex;
-	let selectedValue = selectBox.options[selectedIndex].value;
+	let index = selectBox.options.selectedIndex;
+	let selectedValue = selectBox.options[index].value;
 	if (selectedValue == ""){
 		alert("Select the box.");
 		return false;

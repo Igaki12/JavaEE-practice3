@@ -155,9 +155,9 @@ public class RegisterServlet extends HttpServlet {
 			System.out.println("Success_insertAll");
 		}
 		
-		
-		
-		
+		File f = new File("/WEB-INF/jsp/tickets.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher(f.getPath());
+		dispatcher.forward(request, response);
 		
 
 	}

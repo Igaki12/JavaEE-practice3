@@ -23,13 +23,19 @@ function check() {
 		fault_flag += 1;
 	}
 	if(formElements.cancel_rate1.value.match(/^([1-9]\d*[0])$/) == null){
-		alertMsg += "キャンセル料は１０の倍数で入力してください\n";
+		alertMsg += "キャンセル料を10の倍数で入力してください\n";
 		fault_flag += 1;
 	}if(formElements.svc_name.value == ""){
 		alertMsg += "サービス名を入力してください\n";
 		fault_flag += 1;
 	}if(formElements.svc_cautions.value == ""){
 		alertMsg += "サービス注意事項を入力してください\n";
+		fault_flag += 1;
+	}if(formElements.tickets_kind.value.match(/^[1-2]$/) == null){
+		alertMsg += "チケットの種類を設定してください\n";
+		fault_flag += 1;
+	}if(formElements.svc_select_type.value.match(/^[1-2]$/) == null){
+		alertMsg += "サービスの種類を設定してください\n";
 		fault_flag += 1;
 	}	
 	if(alertMsg != ""){

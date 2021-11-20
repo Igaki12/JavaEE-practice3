@@ -26,6 +26,15 @@
         <url-pattern>/RegisterDate</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>TicketListServletMapping</servlet-name>
+        <servlet-class>servlet.TicketListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TicketListServletMapping</servlet-name>
+        <url-pattern>/TicketList</url-pattern>
+    </servlet-mapping>
+    
     
         
     

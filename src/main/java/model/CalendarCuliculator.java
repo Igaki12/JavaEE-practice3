@@ -7,6 +7,12 @@ import java.util.Date;
 
 public class CalendarCuliculator {
 	
+	public static Date ParseStrDatetimeToDate(String strDatetime) throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date date = dateFormat.parse(strDatetime);
+		return date;
+	}
+	
 	public static Date ParseStringToDate(String str) throws ParseException{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(str);
@@ -27,7 +33,13 @@ public class CalendarCuliculator {
 		Date date = cal.getTime();
 		return date;
 	}
-	public static String AddDaysTostrDate(int d,String str) throws ParseException{
+	public static Calendar ParseStrDatetimeToCalender(String strDatetime) throws ParseException{
+		Date date = model.CalendarCuliculator.ParseStrDatetimeToDate(strDatetime);
+		Calendar cl = model.CalendarCuliculator.DateToCalendar(date);
+		return cl;
+	}
+	
+	public static String AddDaysToStrDate(int d,String str) throws ParseException{
 		
 		Date date = model.CalendarCuliculator.ParseStringToDate(str);
 		Calendar cal = model.CalendarCuliculator.DateToCalendar(date);

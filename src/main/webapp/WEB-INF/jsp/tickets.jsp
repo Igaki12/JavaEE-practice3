@@ -5,6 +5,8 @@
    String pRegister = fR.getName(); 
    File fD = new File("/RegisterDate");
    String pDate = fD.getName();
+   File fl = new File("/TicketList");
+   String pList = fl.getName();
    %>
 <%
 String ticket_code = "";
@@ -27,32 +29,37 @@ if(t != null) {
 <title>Tickets</title>
 </head>
 <body>
-  <div class="main-box">
-    <div class="side-menu">
-      <p>チケット登録</p>
-      <a href="<%=pDate %>">期間販売登録</a>
+  <div class="full-page">
+    <div class="main-box">
+      <div class="side-menu">
+        <p>チケット登録</p>
+        <a href="<%=pDate %>">期間販売登録</a>
+        <br>
+        <a href="<%=pList %>">チケット一覧</a>
+      </div>
+      <section>
+        <form action="<%=pRegister %>" class="register-btn" method="get">
+          <button class="button" type="submit">新規登録</button>
+        </form>
+        <table>
+          <tr>
+            <th>No</th><th>商品番号</th><th>チケット名</th><th>金額</th><th></th><th></th>
+          </tr><tr>
+            <td>1</td><td><%=ticket_code %></td><td><%=ticket_name %></td><td><%=type_money %></td><td></td><td></td>
+          </tr><tr>
+            <td>2</td><td></td><td></td><td></td><td></td><td></td>
+          </tr><tr>
+            <td>3</td><td></td><td></td><td></td><td></td><td></td>
+          </tr><tr>
+            <td>4</td><td></td><td></td><td></td><td></td><td></td>
+          </tr><tr>
+            <td>5</td><td></td><td></td><td></td><td></td><td></td>
+          </tr>
+        </table>
+      </section>
     </div>
-    <section>
-      <form action="<%=pRegister %>" class="register-btn" method="get">
-        <button class="button" type="submit" value="新規" >新規登録</button>
-      </form>
-      <table>
-        <tr>
-          <th>No</th><th>商品番号</th><th>チケット名</th><th>金額</th><th></th><th></th>
-        </tr><tr>
-          <td>1</td><td><%=ticket_code %></td><td><%=ticket_name %></td><td><%=type_money %></td><td></td><td></td>
-        </tr><tr>
-          <td>2</td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td>3</td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td>4</td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td>5</td><td></td><td></td><td></td><td></td><td></td>
-        </tr>
-      </table>
-    </section>
   </div>
+  
   
 
 </body>

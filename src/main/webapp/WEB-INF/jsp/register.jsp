@@ -22,7 +22,7 @@
     <label><input type="checkbox" name="genre_code1" class="checkbox" value="1">ジャンル大</label>
     <h4>ジャンル小</h4>
     <label><input type="checkbox" name="genre_code2" class="checkbox" value="1">ジャンル小</label><br>
-    <div class="register-flex"><div>チケット名</div><input type="text" name="ticket_name"></div>
+    <div class="register-flex"><div>チケット名</div><input type="text" name="ticket_name"><p>※必須</p></div>
     <div class="register-flex"><div>概要</div><input type="text" name="contents_data1"></div>
     <div class="register-flex"><div>画像</div><input type="file" name=""></div>
     <br>
@@ -35,10 +35,10 @@
     <div class="register-flex"><div>お問合せ</div><input type="text" name="ticket_remarks"></div>
     <br>
     <h3>商品設定</h3>
-    <div class="register-flex"><div>商品番号</div><input type="text" name="ticket_code"></div>
+    <div class="register-flex"><div>商品番号</div><input type="text" name="ticket_code"><p>※必須</p></div>
     <div class="register-flex"><div>確認オプション</div><label><input type="checkbox" class="checkbox" name="minors_flag" value="1">未成年フラグ</label></div>
-    <div class="register-flex"><div>キャンセル料発生期限(分)</div><input type="number" name="cancel_limit"></div>
-    <h4>料金</h4>
+    <div class="register-flex"><div>キャンセル料発生期限(分)</div><input type="number" name="cancel_limit"><p>※必須</p></div>
+    <div class="register-flex"><h4>料金</h4><p>※必須</p></div>
     <div class="register-grid" id="grid">
       <div>名称1</div><div>単価1</div><div>キャンセル料1</div>
       <input type="text" name="type_name1"><input type="number" name="type_money1" min="0" step="10"><input type="number" name="cancel_rate1"min="0" step="10">
@@ -55,8 +55,8 @@
     <div class="register-flex"><label><input type="radio" name="tickets_kind" class="radio" value="1">フリーチケット</label><label><input type="radio" name="tickets_kind" class="radio" value="2">指定チケット</label></div>
     <br>
     <h3>サービス設定</h3>
-    <div class="register-flex"><div>サービス名</div><input type="text" name="svc_name"></div>
-    <div class="register-flex"><div>内容・注意事項</div><input type="text" name="svc_cautions"></div>
+    <div class="register-flex"><div>サービス名</div><input type="text" name="svc_name"><p>※必須</p></div>
+    <div class="register-flex"><div>内容・注意事項</div><input type="text" name="svc_cautions"><p>※必須</p></div>
     <div class="register-flex"><div>サービス種類</div><input type="file" name=""></div>
     <div class="register-flex"><label><input type="radio" name="svc_select_type" class="radio" value="1">サービス１</label><label><input type="radio" name="svc_select_type" class="radio" value="2">サービス２</label></div>
     <br>
