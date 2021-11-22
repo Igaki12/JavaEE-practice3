@@ -40,7 +40,7 @@ if(t1.getTickets_kind() == 1){
           <h4>有効期限（開始）</h4><h4>有効期限（終了）</h4><div></div><div></div>
           <input type="date" min="2010-01-01" max="2029-12-31" name="ticket_interval_start"><input type="date" min="2010-01-01" max="2029-12-31" name="ticket_interval_end"><div></div><div></div>
           <div></div><div></div><div></div><div></div>
-          <div><h4>販売枚数</h4></div><h4>1枚あたりの最小枚数</h4><h4>1枚あたりの最大枚数</h4><br>
+          <div><h4>販売枚数</h4></div><h4>1人あたりの最小枚数</h4><h4>1人あたりの最大枚数</h4><br>
           <input type="number" min="0" name="ticket_num"><input type="number" min="0" name="ticket_min_num"><input type="number" min="0" name="ticket_max_num"><br>
         </div>
         

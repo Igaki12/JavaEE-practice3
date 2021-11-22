@@ -2,6 +2,9 @@ package servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.PageProperty;
 import model.Table1;
 import model.Table2;
+import model.Table5;
 import model.Table7;
 
 public class TicketServlet extends HttpServlet {
@@ -18,8 +23,40 @@ public class TicketServlet extends HttpServlet {
 
 	protected void doGet (HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException ,IOException{
-		File f = new File("/WEB-INF/jsp/tickets.jsp");
-		String path = f.getPath();
+		
+		request.setCharacterEncoding("UTF-8");
+		PageProperty property = new PageProperty();
+		String page = request.getParameter("page");
+		if(page == null || page == "") {
+			page = "1";
+		}
+		property.setPage(Integer.parseInt(page));
+		String kind = request.getParameter("kind");
+		if(kind == null || kind == "") {
+			kind ="1";
+		}
+		property.setKind(Integer.parseInt(kind));
+		
+		File file = new File("/WEB-INF/jsp/tickets.jsp");
+		if(kind.equals("2")) {
+			
+			file = new File("/WEB-INF/jsp/tickets.jsp");
+		}if(kind.equals("3")) {
+			
+			file = new File("/WEB-INF/jsp/tickets.jsp");
+		}if(kind.equals("4")) {
+			
+			file = new File("/WEB-INF/jsp/tickets.jsp");
+		}else {
+			List<Table1> list1 = model.DAO.SelectAllOfTable1();
+//			最初期のテストでTable5上のデータが存在しないチケットがあるので除外していたが、今は廃止
+
+			request.setAttribute("list1", list1);
+			request.setAttribute("property", property);
+			file = new File("/WEB-INF/jsp/tickets.jsp");
+		}
+		
+		String path = file.getPath();
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request,response);
 	}

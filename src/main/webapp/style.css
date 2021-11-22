@@ -29,7 +29,7 @@
 
 .main-box > section {
   margin: 0 10px;
-  width: 700px;
+  width: 800px;
   min-height: 500px;
   border-radius: 5px;
   background-color: white;
@@ -48,6 +48,10 @@
   border-radius: 5px;
   padding: 3px 20px;
 }
+.button_td{
+	padding: 2px 5px;
+}
+
 
 .main-box > section > table th {
   color: white;
@@ -59,7 +63,11 @@
   color: black;
   background-color: rgb(218, 218, 248);
   min-height: 30px;
-  padding: 2px 20px;
+  padding: 2px 8px;
+}
+table td > h6{
+	font-weight: normal;
+	margin: 0;
 }
 
 h2 {

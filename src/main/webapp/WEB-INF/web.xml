@@ -35,6 +35,24 @@
         <url-pattern>/TicketList</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>TicketDeleteServletMapping</servlet-name>
+        <servlet-class>servlet.TicketDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TicketDeleteServletMapping</servlet-name>
+        <url-pattern>/TicketDelete</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>TicketEditServletMapping</servlet-name>
+        <servlet-class>servlet.TicketEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TicketEditServletMapping</servlet-name>
+        <url-pattern>/TicketEdit</url-pattern>
+    </servlet-mapping>
+    
     
         
     

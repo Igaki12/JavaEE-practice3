@@ -42,7 +42,7 @@ if(t1.getTickets_kind() == 1){
         <br>
         <h3>予約日</h3>
         <div class="registerDate-grid">
-          <div><h4>利用可能日</h4></div><div><h4>販売枚数</h4></div><h4>1枚あたりの最小枚数</h4><h4>1枚あたりの最大枚数</h4>
+          <div><h4>利用可能日</h4></div><div><h4>販売枚数</h4></div><h4>1人あたりの最小枚数</h4><h4>1人あたりの最大枚数</h4>
           <input type="date" min="2010-01-01" max="2029-12-31" name="ticket_interval_startDay"><input type="number" min="0" name="ticket_num"><input type="number" min="0" name="ticket_min_num"><input type="number" min="0" name="ticket_max_num">
         </div>
           

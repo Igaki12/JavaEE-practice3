@@ -29,7 +29,7 @@ public class RegisterDateServlet extends HttpServlet {
 		String id = request.getParameter("ticket_code");
 		int intId = Integer.parseInt(id);
 		Table1 t1 = model.DAO.SelectTable1ById(intId);
-		Table6 t6 = model.DAO.SelectTable6ByFK(t1.getTicket_code());
+		Table6 t6 = model.DAO.SelectTable6ByBiz_idTicket_code(t1.getBiz_id(),t1.getTicket_code());
 		request.setAttribute("Table1", t1);
 		request.setAttribute("Table6", t6);
 		

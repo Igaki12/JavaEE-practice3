@@ -44,9 +44,9 @@
       
       <div class="list-flex">
         	<%if(number > 10){ %>
-        	<a href="<%=pList %>?page=<%=-1+property.getPage()%>">prev</a><p> |</p>
+        	<a href="<%=pList %>?page=<%=-1+property.getPage()%>">前</a><p> |</p>
         	<%}else{ %>
-        	<p>prev|</p>
+        	<p>前|</p>
         	<%}if(property.getPage()>3){ %>
         	<a href="<%=pList %>?page=<%=-3+property.getPage()%>"><%=-3+property.getPage() %></a><p>-</p>
         	<%}if(property.getPage()>2){ %>
@@ -60,9 +60,10 @@
         	<p>-</p><a href="<%=pList %>?page=<%=2+property.getPage()%>"><%=2+property.getPage() %></a>
         	<%}if((number+20) < list1.size()){ %>
         	<p>-</p><a href="<%=pList %>?page=<%=3+property.getPage()%>"><%=3+property.getPage() %></a>
-        	<%}if(number < list1.size()){ %><p>| </p><a href="<%=pList %>?page=<%=1+property.getPage() %>" >next</a>
+        	<%}if(number < list1.size()){ %>
+        	<p>| </p><a href="<%=pList %>?page=<%=1+property.getPage() %>" >次</a>
         	<%}else{ %>
-        	<p>|next</p>
+        	<p>|次</p>
         	<%} %>
       </div>
     </div>  
