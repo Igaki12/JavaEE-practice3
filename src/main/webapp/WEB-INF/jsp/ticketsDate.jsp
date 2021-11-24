@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.io.*" import="model.Ticket" import="model.DAO" import="java.util.List" import="model.Table1" import="model.PageProperty" import="model.Table5"%>
+<%@page import="java.io.*" import="model.Ticket" import="model.DAO" import="java.util.List" import="model.Table1" import="model.PageProperty" import="model.Table2" import="model.Table7"%>
 <%File fR = new File("/RegisterServlet");
    String pRegister = fR.getName(); 
    File fD = new File("/RegisterDate");
@@ -31,8 +31,8 @@ int number = 10*property.getPage();
   <div class="full-page">
     <div class="main-box">
       <div class="side-menu">
-        <p>チケット登録</p>
-        <a href="<%=pTicket %>?kind=2&page=<%=property.getPage()%>">期間販売登録</a><br>
+        <a href="<%=pTicket %>?kind=1&page=<%=property.getPage()%>">チケット登録</a><br>
+        <p>期間販売登録</p>
         <a href="<%=pTicket %>?kind=3&page=<%=property.getPage()%>">チケット一覧</a>
       </div>
       <section>
@@ -41,21 +41,34 @@ int number = 10*property.getPage();
         </form>
         <table>
           <tr>
-            <th>No</th><th>商品番号</th><th>チケット名</th><th>金額</th><th></th><th></th>
+            <th>No</th><th>商品<br>番号</th><th>チケット名</th><th>種類</th><th>販売<br>期限</th><th>販売<br>枚数</th><th></th><th></th>
           </tr>
           <%for(int i = number-10; i < list1.size() && i<number; i++){
         	  int id = list1.get(i).getId();
         	  int biz_id = list1.get(i).getBiz_id();
         	  String code = list1.get(i).getTicket_code();
         	  String name = list1.get(i).getTicket_name();
-        	  List<Table5> list5 = DAO.SelectListOfTable5ByBiz_idTicket_code(biz_id, code);
+        	  int tickets_kind = list1.get(i).getTickets_kind();
+        	  String strKind = "";
+        	  if(tickets_kind == 2){
+        		 strKind = "指定";
+        	  }if(tickets_kind == 1) {
+        		 strKind = "フリー";
+        	  }
+        	  List<Table2> list2 = DAO.selectListOfTable2ByBiz_idTicket_code(biz_id, code);
+        	  List<Table7> list7 = DAO.SelectListOfTable7ByBiz_idTicket_code(biz_id, code);
+        	  
+        	  
         	  %>
           
-            <tr><td><%=id %></td><td><%=code %></td><td><%=name %></td><td>
-            <%for (Table5 t5: list5){
-            	String type = t5.getType_name();
-            	int money = t5.getType_money();
-            	%><h6><%=type%>:<%=money%>円</h6>
+            <tr><td><%=id %></td><td><%=code %></td><td><%=name %></td><td><%=strKind %></td><td>
+            <%for (int j=0;j<list2.size()&&j<list7.size();j++){
+            	String end = list2.get(j).getSales_interval_end().split(" ")[0];
+            	%><h6><%=end %></h6>
+            <%} %></td><td>
+            <%for(int k=0;k<list7.size()&&k<list2.size();k++){
+            	int num = list7.get(k).getTicket_num();
+              %><h6><%=num %></h6>
             <%} %></td>
             <td><input class="button" type="button" value="編集" onclick="location.href='<%=pEdit%>?id=<%=id%>&kind=<%=property.getKind()%>&page=<%=property.getPage()%>'"></td><td><input class="button" type="button" value="削除" onclick="location.href='<%=pDelete%>?id=<%=id%>&kind=<%=property.getKind()%>&page=<%=property.getPage()%>'"></td></tr>
           

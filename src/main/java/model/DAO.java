@@ -197,6 +197,41 @@ public class DAO {
 		}
 	}
 	
+	public static List<Table2> selectListOfTable2ByBiz_idTicket_code(int biz_id,String ticket_code){
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM Table2 WHERE biz_id=? AND ticket_code=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, biz_id);
+			ps.setString(2, ticket_code);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			
+			List<Table2> list2 = new ArrayList<>();
+			while(rs.next()) {
+				Table2 t2 = new Table2();
+				t2.setId(rs.getInt("id"));
+				t2.setBiz_id(rs.getInt("Biz_id"));
+				t2.setTicket_code(rs.getString("ticket_code"));
+				t2.setSales_id(rs.getInt("sales_id"));
+				t2.setSales_interval_start(rs.getString("sales_interval_start"));
+				t2.setSales_interval_end(rs.getString("sales_interval_end"));
+				list2.add(t2);
+			}
+			ps.close();
+			rs.close();
+			conn.close();
+			return list2;
+			
+		}catch(Exception e ) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+		
+	}
+	
 	public static List<Table3> SelectListOfTable3ByBiz_idTicket_code(int biz_id,String ticket_code){
 		Connection conn = (Connection)Connect();
 		PreparedStatement ps = null;
@@ -340,6 +375,45 @@ public class DAO {
 		}
 	}
 	
+	public static List<Table7> SelectListOfTable7ByBiz_idTicket_code(int biz_id,String ticket_code) {
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM Table7 WHERE biz_id=? AND ticket_code=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, biz_id);
+			ps.setString(2, ticket_code);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			
+			List<Table7> list7 = new ArrayList<>();
+			while(rs.next()) {
+				Table7 t7 = new Table7();
+				t7.setId(rs.getInt("id"));
+				t7.setBiz_id(rs.getInt("biz_id"));
+				t7.setTicket_code(rs.getString("ticket_code"));
+				t7.setSales_id(rs.getInt("sales_id"));
+				t7.setTicket_interval_start(rs.getString("ticket_interval_start"));
+				t7.setTicket_interval_end(rs.getString("ticket_interval_end"));
+				t7.setTicket_days(rs.getInt("ticket_days"));
+				t7.setTicket_num(rs.getInt("ticket_num"));
+				t7.setTicket_min_num(rs.getInt("ticket_min_num"));
+				t7.setTicket_max_num(rs.getInt("ticket_max_num"));
+				
+				list7.add(t7);				
+			}
+			
+			rs.close();
+			ps.close();
+			conn.close();
+			return list7;
+					
+		}catch ( Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 	
 	
 	public static int InsertTable1(Table1 t1) {
@@ -563,8 +637,8 @@ public class DAO {
 			  try {
 				  PreparedStatement ps = null;
 				  
-				  String sql = "UPDATE Table1 SET (biz_id,ticket_code,spot_area_id,genre_code1,genre_code2,ticket_name,ticket_remarks,tickets_kind,"
-							+ "minors_flag,cancel_flag,cancel_limit) = (?,?,?,?,?,?,?,?,?,?,?) WHERE id=?";
+				  String sql = "UPDATE Table1 SET biz_id=?,ticket_code=?,spot_area_id=?,genre_code1=?,genre_code2=?,ticket_name=?,ticket_remarks=?,tickets_kind=?,"
+							+ "minors_flag=?,cancel_flag=?,cancel_limit=? WHERE id=?";
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1,t1.getBiz_id());
 				ps.setString(2,t1.getTicket_code());
@@ -581,7 +655,7 @@ public class DAO {
 				System.out.println(ps);
 				int i1 = ps.executeUpdate();
 				
-				sql = "UPDATE table3 SET (contents_index,contents_data) = (?,?) WHERE biz_id=? AND ticket_code=? AND contents_type=?";
+				sql = "UPDATE table3 SET contents_index=?,contents_data=? WHERE biz_id=? AND ticket_code=? AND contents_type=?";
 				ps = conn.prepareStatement(sql);
 				
 				ps.setInt(1, t3_1.getContents_index());
@@ -592,7 +666,7 @@ public class DAO {
 				System.out.println(ps);
 				int i3_1 = ps.executeUpdate();
 				
-				sql = "UPDATE table3 SET (contents_index,contents_data) = (?,?) WHERE biz_id=? AND ticket_code=? AND contents_type=?";
+				sql = "UPDATE table3 SET contents_index=? ,contents_data=? WHERE biz_id=? AND ticket_code=? AND contents_type=?";
 				ps = conn.prepareStatement(sql);
 
 				ps.setInt(1, t3_2.getContents_index());
@@ -603,7 +677,7 @@ public class DAO {
 				System.out.println(ps);
 				int i3_2 = ps.executeUpdate();
 				
-				sql = "UPDATE table4 SET (cautions_index,cautions_text) = (?,?) WHERE biz_id=? AND ticket_code=? AND cautions_type=?";
+				sql = "UPDATE table4 SET cautions_index=? ,cautions_text=? WHERE biz_id=? AND ticket_code=? AND cautions_type=?";
 				ps = conn.prepareStatement(sql);
 
 				ps.setInt(1, t4_1.getCautions_index());
@@ -614,7 +688,7 @@ public class DAO {
 				System.out.println(ps);
 				int i4_1 = ps.executeUpdate();
 				
-				sql = "UPDATE table4 SET (cautions_index,cautions_text) = (?,?) WHERE biz_id=? AND ticket_code=? AND cautions_type=?";
+				sql = "UPDATE table4 SET cautions_index=?,cautions_text=?  WHERE biz_id=? AND ticket_code=? AND cautions_type=?";
 				ps = conn.prepareStatement(sql);
 
 				ps.setInt(1, t4_2.getCautions_index());
@@ -625,7 +699,7 @@ public class DAO {
 				System.out.println(ps);
 				int i4_2 = ps.executeUpdate();
 				
-				sql = "UPDATE table4 SET (cautions_index,cautions_text) = (?,?) WHERE biz_id=? AND ticket_code=? AND cautions_type=?";
+				sql = "UPDATE table4 SET cautions_index=?,cautions_text=? WHERE biz_id=? AND ticket_code=? AND cautions_type=?";
 				ps = conn.prepareStatement(sql);
 
 				ps.setInt(1, t4_3.getCautions_index());
@@ -639,7 +713,7 @@ public class DAO {
 				int i5 = 0;
 				
 				for (Table5 t5 : list5) {
-					sql = "UPDATE table5 SET (type_name,type_money,cancel_type,cancel_rate) = (?,?,?,?) WHERE biz_id=? AND ticket_code=? AND type_id=?";
+					sql = "UPDATE table5 SET type_name=?,type_money=?,cancel_type=?,cancel_rate=? WHERE biz_id=? AND ticket_code=? AND type_id=?";
 					ps = conn.prepareStatement(sql);
 
 					ps.setString(1, t5.getType_name());
@@ -655,7 +729,7 @@ public class DAO {
 				
 				
 				
-				sql = "UPDATE table6 SET (svc_name,svc_cautions,svc_type,svc_select_type,usage_time) = (?,?,?,?,?) WHERE biz_id=? AND ticket_code=? AND svc_id=?";
+				sql = "UPDATE table6 SET svc_name=?,svc_cautions=?,svc_type=?,svc_select_type=?,usage_time=? WHERE biz_id=? AND ticket_code=? AND svc_id=?";
 				ps = conn.prepareStatement(sql);
 
 				ps.setString(1, t6.getSvc_name());

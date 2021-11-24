@@ -6,7 +6,7 @@
 <%File ft = new File("/TicketServlet");
    String pTicket = ft.getName(); 
    File fe = new File("/TicketEdit");
-   String pEdit = ft.getName(); 
+   String pEdit = fe.getName(); 
    String p = (String)request.getAttribute("page");
    Table1 t1 = (Table1)request.getAttribute("Table1");
    List<Table3> list3 = (List<Table3>)request.getAttribute("List3");
@@ -25,7 +25,7 @@
 <body>
   <div class="full-page">
   <h2>新規登録</h2>
-  <form class="register-parent" action="<%=pEdit %>?Id=<%=t1.getId() %>&kind=1&page=<%=p %>" method="post" name="ticket_form">
+  <form class="register-parent" action="<%=pEdit %>?id=<%=t1.getId() %>&kind=1&page=<%=p %>" method="post" name="ticket_form">
     <h3>概要</h3>
     <h4>ジャンル大</h4>
     <label><input type="checkbox" name="genre_code1" class="checkbox" value="1"<%if(t1.getGenre_code1().equals("1")){ %>checked="checked"<%} %> >ジャンル大</label>

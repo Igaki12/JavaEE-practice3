@@ -20,16 +20,20 @@
   justify-content: left;
 }
 .side-menu {
-  width: 300px;
+  width: 150px;
   min-height: 500px;
   background-color: white;
   border-radius: 5px;
-  padding: 50px 30px;
+  padding: 50px 20px;
 }
+.side-menu > p{
+	font-weight: bold;
+}
+
 
 .main-box > section {
   margin: 0 10px;
-  width: 800px;
+  width: 850px;
   min-height: 500px;
   border-radius: 5px;
   background-color: white;
