@@ -197,7 +197,40 @@ public class DAO {
 		}
 	}
 	
-	public static List<Table2> selectListOfTable2ByBiz_idTicket_code(int biz_id,String ticket_code){
+	public static Table2 SelectTable2ByBiz_idTicket_codeSales_id(int biz_id,String ticket_code,int sales_id) {
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM Table2 WHERE biz_id=? AND ticket_code=? AND sales_id=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, biz_id);
+			ps.setString(2, ticket_code);
+			ps.setInt(3, sales_id);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			
+			rs.next();
+				Table2 t2 = new Table2();
+				t2.setId(rs.getInt("id"));
+				t2.setBiz_id(rs.getInt("biz_id"));
+				t2.setTicket_code(rs.getString("ticket_code"));
+				t2.setSales_id(rs.getInt("sales_id"));
+				t2.setSales_interval_start(rs.getString("sales_interval_start"));
+				t2.setSales_interval_end(rs.getString("sales_interval_end"));
+				
+				ps.close();
+				rs.close();
+				conn.close();
+				
+				return t2;
+		}catch (Exception e ) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	public static List<Table2> SelectListOfTable2ByBiz_idTicket_code(int biz_id,String ticket_code){
 		Connection conn = (Connection)Connect();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -213,7 +246,7 @@ public class DAO {
 			while(rs.next()) {
 				Table2 t2 = new Table2();
 				t2.setId(rs.getInt("id"));
-				t2.setBiz_id(rs.getInt("Biz_id"));
+				t2.setBiz_id(rs.getInt("biz_id"));
 				t2.setTicket_code(rs.getString("ticket_code"));
 				t2.setSales_id(rs.getInt("sales_id"));
 				t2.setSales_interval_start(rs.getString("sales_interval_start"));
@@ -370,6 +403,43 @@ public class DAO {
 			return t6;
 					
 		}catch ( Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	public static Table7 SelectTable7ByBiz_idTicket_codeSales_id(int biz_id,String ticket_code,int sales_id) {
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM Table7 WHERE biz_id=? AND ticket_code=? AND sales_id=?";
+	  	    ps = conn.prepareStatement(sql);
+	  	    ps.setInt(1, biz_id);
+		    ps.setString(2, ticket_code);
+		    ps.setInt(3, sales_id);
+		    System.out.println(ps);
+		    rs = ps.executeQuery();
+		
+         	rs.next();
+			Table7 t7 = new Table7();
+			t7.setId(rs.getInt("id"));
+			t7.setBiz_id(rs.getInt("biz_id"));
+			t7.setTicket_code(rs.getString("ticket_code"));
+			t7.setSales_id(rs.getInt("sales_id"));
+			t7.setTicket_interval_start(rs.getString("ticket_interval_start"));
+			t7.setTicket_interval_end(rs.getString("ticket_interval_end"));
+			t7.setTicket_days(rs.getInt("ticket_days"));
+			t7.setTicket_num(rs.getInt("ticket_num"));
+			t7.setTicket_min_num(rs.getInt("ticket_min_num"));
+			t7.setTicket_max_num(rs.getInt("ticket_max_num"));
+			
+			ps.close();
+			rs.close();
+			conn.close();
+			return t7;
+						
+		}catch(Exception e ) {
 			System.out.println(e.getMessage());
 			return null;
 		}
@@ -710,23 +780,30 @@ public class DAO {
 				System.out.println(ps);
 				int i4_3 = ps.executeUpdate();
 				
-				int i5 = 0;
+//				Table5だけは新規追加が可能なので、一度既存のデータを全削除して追加しなおす
+				sql = "DELETE FROM Table5 WHERE biz_id=? AND ticket_code=?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, t1.getBiz_id());
+				ps.setString(2, t1.getTicket_code());
+				System.out.println(ps);
+				int i5_d = ps.executeUpdate();
 				
+				int i5_i = 0;
 				for (Table5 t5 : list5) {
-					sql = "UPDATE table5 SET type_name=?,type_money=?,cancel_type=?,cancel_rate=? WHERE biz_id=? AND ticket_code=? AND type_id=?";
+					sql = "INSERT INTO table5(biz_id,ticket_code,type_id,type_name,type_money,cancel_type,cancel_rate) VALUES(?,?,?,?,?,?,?)";
 					ps = conn.prepareStatement(sql);
-
-					ps.setString(1, t5.getType_name());
-					ps.setInt(2, t5.getType_money());
-					ps.setInt(3, t5.getCancel_type());
-					ps.setInt(4, t5.getCancel_rate());
-					ps.setInt(5, t5.getBiz_id());
-					ps.setString(6, t5.getTicket_code()); 
-					ps.setInt(7, t5.getType_id());
+					ps.setInt(1, t5.getBiz_id());
+					ps.setString(2, t5.getTicket_code()); 
+					ps.setInt(3, t5.getType_id());
+					ps.setString(4, t5.getType_name());
+					ps.setInt(5, t5.getType_money());
+					ps.setInt(6, t5.getCancel_type());
+					ps.setInt(7, t5.getCancel_rate());
 					System.out.println(ps);
-					i5 += ps.executeUpdate();
+					i5_i += ps.executeUpdate();
 				}
-				
+				int i5 = 0;
+				i5 = i5_i - i5_d;
 				
 				
 				sql = "UPDATE table6 SET svc_name=?,svc_cautions=?,svc_type=?,svc_select_type=?,usage_time=? WHERE biz_id=? AND ticket_code=? AND svc_id=?";
@@ -836,6 +913,44 @@ public class DAO {
 			return 1;
 		}}catch (Exception e ) {
 			System.out.println(e.getMessage());
+			return 1;
+		}
+	}
+	
+	public static int DeleteTable27ByBiz_idTicket_codeSales_id(int biz_id,String ticket_code,int sales_id) {
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		String sql = null;
+		
+		try {
+			try {				
+				sql = "DELETE FROM Table7 WHERE biz_id=? AND ticket_code=? AND sales_id=?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, biz_id);
+				ps.setString(2, ticket_code);
+				ps.setInt(3, sales_id);
+				System.out.println(ps);
+				int i7 = ps.executeUpdate();
+				
+				sql = "DELETE FROM Table2 WHERE biz_id=? AND ticket_code=? AND sales_id=?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, biz_id);
+				ps.setString(2, ticket_code);
+				ps.setInt(3, sales_id);
+				System.out.println(ps);
+				int i2 = ps.executeUpdate();
+
+				conn.commit();
+				System.out.println("Success_deleteTable2&7:" + i2 +"," + i7);
+				return 0;
+			}catch(SQLException e) {
+				conn.rollback();
+				System.out.println(e.getMessage());
+				return 1;
+			}
+			
+		}catch(Exception f) {
+			System.out.println(f.getMessage());
 			return 1;
 		}
 	}

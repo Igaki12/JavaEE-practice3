@@ -53,6 +53,15 @@
         <url-pattern>/TicketEdit</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>DateDeleteServletMapping</servlet-name>
+        <servlet-class>servlet.DateDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DateDeleteServletMapping</servlet-name>
+        <url-pattern>/DateDelete</url-pattern>
+    </servlet-mapping>
+    
     
         
     

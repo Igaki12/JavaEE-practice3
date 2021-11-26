@@ -190,32 +190,32 @@ public class TicketEditServlet extends HttpServlet{
 			System.out.println("Success_updateAll");
 		}
 		
-		PageProperty property = new PageProperty();
-		property.setPage(Integer.parseInt(page));
-		property.setKind(Integer.parseInt(kind));
+//		PageProperty property = new PageProperty();
+//		property.setPage(Integer.parseInt(page));
+//		property.setKind(Integer.parseInt(kind));
+//		
+//		File file = new File("/WEB-INF/jsp/tickets.jsp");
+//		if(kind.equals("2")) {
+//			
+//			file = new File("/WEB-INF/jsp/tickets.jsp");
+//		}if(kind.equals("3")) {
+//			
+//			file = new File("/WEB-INF/jsp/tickets.jsp");
+//		}if(kind.equals("4")) {
+//			
+//			file = new File("/WEB-INF/jsp/tickets.jsp");
+//		}else {
+//			List<Table1> list1 = model.DAO.SelectAllOfTable1();
+////			最初期のテストでTable5上のデータが存在しないチケットがあるので除外していたが、今は廃止
+//
+//			request.setAttribute("list1", list1);
+//			request.setAttribute("property", property);
+//			file = new File("/WEB-INF/jsp/tickets.jsp");
+//		}
+//		
 		
-		File file = new File("/WEB-INF/jsp/tickets.jsp");
-		if(kind.equals("2")) {
-			
-			file = new File("/WEB-INF/jsp/tickets.jsp");
-		}if(kind.equals("3")) {
-			
-			file = new File("/WEB-INF/jsp/tickets.jsp");
-		}if(kind.equals("4")) {
-			
-			file = new File("/WEB-INF/jsp/tickets.jsp");
-		}else {
-			List<Table1> list1 = model.DAO.SelectAllOfTable1();
-//			最初期のテストでTable5上のデータが存在しないチケットがあるので除外していたが、今は廃止
-
-			request.setAttribute("list1", list1);
-			request.setAttribute("property", property);
-			file = new File("/WEB-INF/jsp/tickets.jsp");
-		}
+		response.sendRedirect("TicketServlet?kind=" + kind + "&page=" + page);
 		
-		String path = file.getPath();
-		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-		dispatcher.forward(request,response);
 	}
 }
 

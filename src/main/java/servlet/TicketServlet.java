@@ -40,7 +40,6 @@ public class TicketServlet extends HttpServlet {
 		
 		File file = new File("/WEB-INF/jsp/tickets.jsp");
 		if(kind.equals("2")) {
-			System.out.println("checkpoint1");
 			List<Table1> list1 = model.DAO.SelectAllOfTable1();
 			request.setAttribute("list1", list1);
 			request.setAttribute("property", property);

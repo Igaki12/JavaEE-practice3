@@ -53,7 +53,7 @@
     	  Table5 t5 = list5.get(i);
     	  %>
       
-      <div>名称<%=i+1%></div><div>単価<%=i+1%></div><div>キャンセル料<%=i+1%></div>
+      <div>名称<%=i+1%></div><div>単価<%=i+1%></div><div class="type<%=i+1%>">キャンセル料<%=i+1%></div>
       <input type="text" name="type_name<%=i+1%>" value="<%=t5.getType_name()%>"><input type="number" name="type_money<%=i+1%>" min="0" step="10"value="<%=t5.getType_money()%>"><input type="number" name="cancel_rate<%=i+1%>" id="cancel_rate<%=i+1%>" min="0" step="10" value="<%=t5.getCancel_rate()%>">
       <%} %>
       <button class="button" type="button" id="addButton" onclick="return add();">↓追加</button>

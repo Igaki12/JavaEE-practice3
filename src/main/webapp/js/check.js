@@ -49,9 +49,14 @@ function check() {
 	}
 }
 
-	let boxNumber = 2;
+
 function add(){
-	boxNumber = boxNumber + 1;
+	let strBoxNumber = document.getElementById("addButton").previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.className.substr(4);
+    let boxNumber = 1;
+    if((/^[-+]?(\d+|Infinity)$/.test(strBoxNumber))){
+	boxNumber = parseInt(strBoxNumber);
+    }
+	boxNumber += 1;
 	let addButton = document.getElementById("addButton");
 	
 	let h = '<div class="type' + boxNumber + '">名称'+boxNumber+'</div><div class="type' + boxNumber + '">単価'+boxNumber+'</div><div class="type' + boxNumber + '">キャンセル料'+boxNumber+'</div><input type="text" name="type_name'+boxNumber+'"><input type="number" name="type_money'+boxNumber+'" min="0" step="10"><input type="number" name="cancel_rate'+boxNumber+'" min="0" step="10" id="cancel_rate'+boxNumber+'">'
@@ -61,6 +66,12 @@ function add(){
 	return true;
 } 
 function deleteElements() {
+	
+	let strBoxNumber = document.getElementById("addButton").previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.className.substr(4);
+    let boxNumber = 1;
+    if((/^[-+]?(\d+|Infinity)$/.test(strBoxNumber))){
+	boxNumber = parseInt(strBoxNumber);
+    }
 	
 	if(boxNumber < 2 ){
 		return;
@@ -76,9 +87,6 @@ function deleteElements() {
 	let latestCancelRate = document.getElementsByName('cancel_rate'+ boxNumber);
 	latestCancelRate.item(0).remove();
 
-	
-		boxNumber -= 1;
-		alert(boxNumber);
 	
 }
 

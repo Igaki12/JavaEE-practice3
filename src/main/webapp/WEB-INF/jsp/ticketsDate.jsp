@@ -9,7 +9,7 @@
    String pList = fl.getName();
    File fT = new File("/TicketServlet");
    String pTicket = fT.getName();
-   File fDelete = new File("/TicketDelete");
+   File fDelete = new File("/DateDelete");
    String pDelete = fDelete.getName();
    File fEdit = new File("/TicketEdit");
    String pEdit = fEdit.getName();
@@ -36,12 +36,12 @@ int number = 10*property.getPage();
         <a href="<%=pTicket %>?kind=3&page=<%=property.getPage()%>">チケット一覧</a>
       </div>
       <section>
-        <form action="<%=pRegister %>" class="register-button-flex" method="get">
+        <form action="<%=pDate %>" class="register-button-flex" method="get">
           <button class="button" type="submit">新規登録</button>
         </form>
         <table>
           <tr>
-            <th>No</th><th>商品<br>番号</th><th>チケット名</th><th>種類</th><th>販売<br>期限</th><th>販売<br>枚数</th><th></th><th></th>
+            <th>No</th><th>商品<br>番号</th><th>チケット名</th><th>種類</th><th>販売<br>期間</th><th>販売<br>枚数</th><th></th><th></th>
           </tr>
           <%for(int i = number-10; i < list1.size() && i<number; i++){
         	  int id = list1.get(i).getId();
@@ -58,21 +58,29 @@ int number = 10*property.getPage();
         	  List<Table2> list2 = DAO.selectListOfTable2ByBiz_idTicket_code(biz_id, code);
         	  List<Table7> list7 = DAO.SelectListOfTable7ByBiz_idTicket_code(biz_id, code);
         	  
-        	  
+        	  int span = Math.min(list2.size(),list7.size());
+        	  if(span < 1){
+        		  span = 1;
+        	  }
         	  %>
           
-            <tr><td><%=id %></td><td><%=code %></td><td><%=name %></td><td><%=strKind %></td><td>
+            <tr><td rowspan="<%=span%>"><%=id %></td><td rowspan="<%=span%>"><%=code %></td><td rowspan="<%=span%>"><%=name %></td><td rowspan="<%=span%>"><%=strKind %></td>
+            <%if(Math.min(list2.size(), list7.size()) < 1){%>
+                <td></td><td></td>
+                <td></td><td></td>
+                </tr>
+            <%}else{ %>
             <%for (int j=0;j<list2.size()&&j<list7.size();j++){
+            	String start = list2.get(j).getSales_interval_start().split(" ")[0];
             	String end = list2.get(j).getSales_interval_end().split(" ")[0];
-            	%><h6><%=end %></h6>
-            <%} %></td><td>
-            <%for(int k=0;k<list7.size()&&k<list2.size();k++){
-            	int num = list7.get(k).getTicket_num();
-              %><h6><%=num %></h6>
-            <%} %></td>
-            <td><input class="button" type="button" value="編集" onclick="location.href='<%=pEdit%>?id=<%=id%>&kind=<%=property.getKind()%>&page=<%=property.getPage()%>'"></td><td><input class="button" type="button" value="削除" onclick="location.href='<%=pDelete%>?id=<%=id%>&kind=<%=property.getKind()%>&page=<%=property.getPage()%>'"></td></tr>
-          
-          <%} %>
+            	int num = list7.get(j).getTicket_num();%>
+            	<%if(j > 0){ %><tr><%} %>
+            	<td><h6><%=start %></h6><h6>~<%=end %></h6></td><td><%=num %></td>
+            	<td><input class="button" type="button" value="編集" onclick="location.href='<%=pEdit%>?id=<%=id%>&kind=<%=property.getKind()%>&page=<%=property.getPage()%>&biz_id=<%=list2.get(j).getBiz_id()%>&ticket_code=<%=list2.get(j).getTicket_code()%>&sales_id=<%=list2.get(j).getSales_id()%>'"></td>
+            	<td><input class="button" type="button" value="削除" onclick="location.href='<%=pDelete%>?id=<%=id%>&kind=<%=property.getKind()%>&page=<%=property.getPage()%>&biz_id=<%=list2.get(j).getBiz_id()%>&ticket_code=<%=list2.get(j).getTicket_code()%>&sales_id=<%=list2.get(j).getSales_id()%>'"></td>
+            	</tr>
+             
+             <%}}}%>
         </table>
         <div class="list-flex">
         	<%if(number > 10){ %>
