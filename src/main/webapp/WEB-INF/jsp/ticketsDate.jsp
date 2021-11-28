@@ -11,7 +11,7 @@
    String pTicket = fT.getName();
    File fDelete = new File("/DateDelete");
    String pDelete = fDelete.getName();
-   File fEdit = new File("/TicketEdit");
+   File fEdit = new File("/DateEdit");
    String pEdit = fEdit.getName();
    %>
 <%List<Table1> list1 = (List<Table1>)request.getAttribute("list1");
@@ -55,7 +55,7 @@ int number = 10*property.getPage();
         	  }if(tickets_kind == 1) {
         		 strKind = "フリー";
         	  }
-        	  List<Table2> list2 = DAO.selectListOfTable2ByBiz_idTicket_code(biz_id, code);
+        	  List<Table2> list2 = DAO.SelectListOfTable2ByBiz_idTicket_code(biz_id, code);
         	  List<Table7> list7 = DAO.SelectListOfTable7ByBiz_idTicket_code(biz_id, code);
         	  
         	  int span = Math.min(list2.size(),list7.size());

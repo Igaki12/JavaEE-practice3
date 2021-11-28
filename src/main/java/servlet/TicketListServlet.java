@@ -57,7 +57,7 @@ public class TicketListServlet extends HttpServlet {
 			}
 			HttpSession session = request.getSession();
 			session.removeAttribute("List-Table1");
-			session.setAttribute("List-Table1", list1);	
+			session.setAttribute("List-Table1", list1);
 			
 		}
 		File f = new File("WEB-INF/jsp/list.jsp");

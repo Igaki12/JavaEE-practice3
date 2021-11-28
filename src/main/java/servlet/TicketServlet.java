@@ -3,6 +3,7 @@ package servlet;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -47,7 +48,9 @@ public class TicketServlet extends HttpServlet {
 			
 		}else if(kind.equals("3")) {
 			
-			file = new File("/WEB-INF/jsp/tickets.jsp");
+			request.setAttribute("page", page);
+			request.setAttribute("kind", kind);
+			file = new File("/TicketList");
 		}else if(kind.equals("4")) {
 			
 			file = new File("/WEB-INF/jsp/tickets.jsp");
@@ -86,7 +89,7 @@ public class TicketServlet extends HttpServlet {
 			String ticket_min_num = request.getParameter("ticket_min_num");
 			String ticket_max_num = request.getParameter("ticket_max_num");
 			
-			int sales_id = 1 + model.DAO.CountTable2ByTicketCode(t1.getTicket_code());
+			int sales_id = 1 + model.DAO.CalMaxOfSales_idByBiz_idTicket_code(t1.getBiz_id(), t1.getTicket_code());
 			
 			t2.setSales_interval_start(sales_interval_startDay + " " + sales_interval_startTime + ":00");
 			t2.setSales_interval_end(sales_interval_endDay + " " + sales_interval_endTime + ":00");
@@ -119,7 +122,7 @@ public class TicketServlet extends HttpServlet {
 			String ticket_days = request.getParameter("ticket_days");
 			String ticket_interval_endDay = sales_interval_startDay;
 			
-			int sales_id = 1 + model.DAO.CountTable2ByTicketCode(t1.getTicket_code());
+			int sales_id = 1 + model.DAO.CalMaxOfSales_idByBiz_idTicket_code(t1.getBiz_id(), t1.getTicket_code());
 			try{
 				ticket_interval_endDay = model.CalendarCuliculator.AddDaysToStrDate(Integer.parseInt(ticket_days),ticket_interval_startDay);
 			}catch(Exception e) {
@@ -147,11 +150,8 @@ public class TicketServlet extends HttpServlet {
 			
 		}
 		session.removeAttribute("Table1");
-		File f = new File("/WEB-INF/jsp/tickets.jsp");
-		String path = f.getPath();
-		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-		dispatcher.forward(request, response);
 		
+		response.sendRedirect("TicketServlet?kind=2&page=1");
 	}
 	
 }

@@ -20,21 +20,18 @@ if(t1.getTickets_kind() == 1){
 }if(t1.getTickets_kind() == 2){
 	tickets_kind = "指定チケット";
 }
-
-
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style.css">
-<script type="text/javascript" src="js/DateCheck.js"></script>
-<title>Register Date forFreeTicket</title>
+<title>Register Date forDesignatedTicket</title>
 </head>
 <body>
   <div class="full-page">
-    <h2>フリーチケット登録</h2>
-    <form class="registerDate-parent" action="<%=pEdit %>?kind=2&page=<%=property.getPage()%>" method="post" name="form">
+    <h2>指定チケット登録</h2>
+    <form class="registerDate-parent" action="<%=pEdit %>?kind=<%=property.getKind() %>&page=<%=property.getPage() %>" method="post">
         <div class="register-flex"><h4>商品番号</h4><p><%=t1.getTicket_code() %></p></div>
         <div class="register-flex"><h4>チケット販売種類</h4><p><%=tickets_kind %></p></div>
         <div class="register-flex"><h4>サービス</h4><p><%=t6.getSvc_name() %></p></div>
@@ -44,17 +41,23 @@ if(t1.getTickets_kind() == 1){
           <h4>販売日付（開始）</h4><h4>販売時間（開始）</h4><h4>販売日付（終了）</h4><h4>販売時間（終了）</h4>
           <input type="date" min="2010-01-01" max="2029-12-31" name="sales_interval_startDay" value="<%=t2.getSales_interval_start().split(" ")[0] %>"></input><input type="time" name="sales_interval_startTime" value="<%=t2.getSales_interval_start().split(" ")[1].split(":")[0] + ":" + t2.getSales_interval_start().split(" ")[1].split(":")[1] %>"></input>
           <input type="date" min="2010-01-01" max="2029-12-31" name="sales_interval_endDay" value="<%=t2.getSales_interval_end().split(" ")[0] %>"></input><input type="time" name="sales_interval_endTime" value="<%=t2.getSales_interval_end().split(" ")[1].split(":")[0] + ":" + t2.getSales_interval_end().split(" ")[1].split(":")[1]%>"></input>
-          <h4>有効期限（開始）</h4><h4>有効期限（終了）</h4><div></div><div></div>
-          <input type="date" min="2010-01-01" max="2029-12-31" name="ticket_interval_start" value="<%=t7.getTicket_interval_start().split(" ")[0] %>"><input type="date" min="2010-01-01" max="2029-12-31" name="ticket_interval_end" value="<%=t7.getTicket_interval_end().split(" ")[0] %>"><div></div><div></div>
-          <div></div><div></div><div></div><div></div>
-          <div><h4>販売枚数</h4></div><h4>1人あたりの最小枚数</h4><h4>1人あたりの最大枚数</h4><br>
-          <input type="number" min="0" name="ticket_num" value="<%=t7.getTicket_num() %>"><input type="number" min="0" name="ticket_min_num" value="<%=t7.getTicket_min_num() %>"><input type="number" min="0" name="ticket_max_num" value="<%=t7.getTicket_max_num() %>"><br>
+          <h4>有効期限</h4><h4></h4><div></div><div></div>
+          <input type="number" min="0" name="ticket_days" value="<%=t7.getTicket_days() %>"><div></div><div></div>
         </div>
+        <br>
+        <h3>予約日</h3>
+        <div class="registerDate-grid">
+          <div><h4>利用可能日</h4></div><div><h4>販売枚数</h4></div><h4>1人あたりの最小枚数</h4><h4>1人あたりの最大枚数</h4>
+          <input type="date" min="2010-01-01" max="2029-12-31" name="ticket_interval_startDay" value="<%=t7.getTicket_interval_start().split(" ")[0] %>"><input type="number" min="0" name="ticket_num" value="<%=t7.getTicket_num() %>">
+          <input type="number" min="0" name="ticket_min_num" value ="<%=t7.getTicket_min_num() %>"><input type="number" min="0" name="ticket_max_num" value="<%=t7.getTicket_max_num() %>">
+        </div>
+          
+        
         
         <div class="register-button-flex">
-          <button type="submit" class="button" onclick="return checkDate1();">登録する</button>
-          <button type="button" class="button" onclick="location.href='<%=pTicket %>?page=<%=property.getPage()%>&kind=<%=property.getKind()%>'">戻る</button>
-    </div>
+          <button type="submit" class="button" onclick="return">登録する</button>
+          <button type="button" class="button" onclick="location.href='<%=pTicket %>?kind=<%=property.getKind() %> %>&page=<%=property.getPage() %>'">戻る</button>
+        </div>
     </form>
 
   </div>

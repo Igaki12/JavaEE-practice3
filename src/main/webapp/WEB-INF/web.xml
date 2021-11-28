@@ -62,6 +62,15 @@
         <url-pattern>/DateDelete</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>DateEditServletMapping</servlet-name>
+        <servlet-class>servlet.DateEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DateEditServletMapping</servlet-name>
+        <url-pattern>/DateEdit</url-pattern>
+    </servlet-mapping>
+    
     
         
     

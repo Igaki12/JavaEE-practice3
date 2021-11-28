@@ -77,6 +77,37 @@ public class DAO {
 			return 0;
 		}
 	}
+	public static int CalMaxOfSales_idByBiz_idTicket_code(int biz_id,String ticket_code){
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int max = 0;
+		try {
+			String sql = "SELECT * FROM Table2 WHERE biz_id=? AND ticket_code=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, biz_id);
+			ps.setString(2, ticket_code);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			
+			
+			while(rs.next()) {
+				if(rs.getInt("sales_id") >= max) {
+					max = rs.getInt("sales_id");
+				}
+			}
+			
+			System.out.println("MaxOfSales_id:" + max);
+			rs.close();
+			ps.close();
+			conn.close();
+			return max;
+			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			return 0;
+		}
+	}
 	
 	public static List<Table1> SelectAllOfTable1() {
 		Connection conn = (Connection)Connect();
@@ -832,6 +863,54 @@ public class DAO {
 				  return 1;
 			  }
 			  
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			return 1;
+		}
+	}
+	
+	public static int UpdateTable27(Table2 t2, Table7 t7) {
+		Connection conn = (Connection)Connect();
+		String sql = null;
+		PreparedStatement ps = null;
+		try {
+			try {
+				sql = "UPDATE Table2 SET sales_interval_start=?,sales_interval_end=? WHERE biz_id=? AND ticket_code=? AND sales_id=?";
+				ps = conn.prepareStatement(sql);
+
+				ps.setString(1, t2.getSales_interval_start());
+				ps.setString(2, t2.getSales_interval_end());
+				ps.setInt(3, t2.getBiz_id());
+				ps.setString(4, t2.getTicket_code());
+				ps.setInt(5, t2.getSales_id());
+				System.out.println(ps);
+				int i = ps.executeUpdate();
+				
+				sql = "UPDATE Table7 SET ticket_interval_start=?,ticket_interval_end=?,ticket_days=?,ticket_num=?,ticket_min_num=?,ticket_max_num=? WHERE biz_id=? AND ticket_code=? AND sales_id=?";
+				ps = conn.prepareStatement(sql);
+
+				ps.setString(1, t7.getTicket_interval_start());
+				ps.setString(2, t7.getTicket_interval_end());
+				ps.setInt(3, t7.getTicket_days());
+				ps.setInt(4, t7.getTicket_num());
+				ps.setInt(5, t7.getTicket_min_num());
+				ps.setInt(6, t7.getTicket_max_num());
+				ps.setInt(7, t7.getBiz_id());
+				ps.setString(8, t7.getTicket_code());
+				ps.setInt(9, t7.getSales_id());
+				System.out.println(ps);
+				int i2 = ps.executeUpdate();
+				
+				conn.commit();
+				System.out.println("Success_updateTable2&7:" + i + "," + i2);
+				conn.close();
+				ps.close();
+				return 0;
+			}catch(SQLException q) {
+				conn.rollback();
+				System.out.println(q.getMessage());
+				return 1;
+			}
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 			return 1;

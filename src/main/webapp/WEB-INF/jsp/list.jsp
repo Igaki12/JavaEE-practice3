@@ -16,7 +16,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style.css">
-<script type="text/javascript" src="js/check.js"></script>
+
 <title>Register</title>
 </head>
 <body>
@@ -31,15 +31,25 @@
         %>
       <div class="select-frame">
         <p><%=code %>：<%=name %></p>
-        <input type="button" value="選択" onclick="location.href='<%=pTicket %>?id=<%=id %>'" name="select_btn" class="button">
+        <input type="button" value="選択" onclick="modalOpen()" name="select_btn<%=i %>" class="button">
         
+      </div>
+      <div class="easyModal" id="modal<%=i %>">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1>Great job 🎉</h1>
+            <span class="modalClose" id="modalClose<%=i %>">×</span>
+          </div>
+          <div class="modal-body">
+　　         <p>You've just displayed this awesome Modal Window!</p>
+            <p>Let's enjoy learning JavaScript ☺️</p>
+          </div>
+　       </div>
       </div>
       <%} %>
-      <div class="select-frame">
-        <p>（例）商品番号：チケット名</p>
-        <input type="button" value="選択" onclick="location.href='<%=pTicket %>'" name="select_btn" class="button">
-        
-      </div>
+      
+      
+     
       
       
       <div class="list-flex">
@@ -69,5 +79,6 @@
     </div>  
   </div>
 
+<script type="text/javascript" src="js/ListCheck.js"></script>
 </body>
 </html>

@@ -36,7 +36,8 @@ public class TicketEditServlet extends HttpServlet{
         	file = new File("jsp/registerEdit.jsp");
 	    }if(kind.equals("2")) {
 			
-	    	file = new File("jsp/registerEdit.jsp");
+	    	file = new File("jsp/editDate1.jsp");
+	    	
 		}else {
 			Table1 t1 = model.DAO.SelectTable1ById(Integer.parseInt(id));
 			List<Table3> list3 = model.DAO.SelectListOfTable3ByBiz_idTicket_code(t1.getBiz_id(), t1.getTicket_code());
