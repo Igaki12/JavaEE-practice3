@@ -71,6 +71,15 @@
         <url-pattern>/DateEdit</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>PurchaseServletMapping</servlet-name>
+        <servlet-class>servlet.PurchaseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PurchaseServletMapping</servlet-name>
+        <url-pattern>/PurchaseServlet</url-pattern>
+    </servlet-mapping>
+    
     
         
     

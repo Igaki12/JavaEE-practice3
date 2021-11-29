@@ -34,6 +34,7 @@ public class DAO {
 				Table2 t2 = new Table2();
 				t2.setId(rs.getInt("id"));
 				t2.setBiz_id(rs.getInt("biz_id"));
+				t2.setSales_id(rs.getInt("sales_id"));
 				t2.setTicket_code(rs.getString("ticket_code"));
 				t2.setSales_interval_start(rs.getString("sales_interval_start"));
 				t2.setSales_interval_end(rs.getString("sales_interval_end"));
@@ -329,6 +330,40 @@ public class DAO {
 			return null;
 		}
 	}
+	
+	public static Table3 SelectTable3ByBiz_idTicket_codeContents_type(int biz_id,String ticket_code,int contents_type) {
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM Table3 WHERE biz_id=? AND ticket_code=? AND contents_type=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, biz_id);
+			ps.setString(2, ticket_code);
+			ps.setInt(3, contents_type);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			
+			rs.next();
+			Table3 t3 = new Table3();
+			    t3.setId(rs.getInt("id"));
+			    t3.setBiz_id(rs.getInt("biz_id"));
+			    t3.setTicket_code(rs.getString("ticket_code"));
+			    t3.setContents_type(rs.getInt("contents_type"));
+			    t3.setContents_index(rs.getInt("contents_index"));
+			    t3.setContents_data(rs.getString("contents_data"));
+			
+			
+			rs.close();
+			ps.close();
+			conn.close();
+			return t3;
+		}catch ( Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
 	public static List<Table4> SelectListOfTable4ByBiz_idTicket_code(int biz_id,String ticket_code){
 		Connection conn = (Connection)Connect();
 		PreparedStatement ps = null;
@@ -358,6 +393,39 @@ public class DAO {
 			ps.close();
 			conn.close();
 			return list4;
+		}catch ( Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	public static Table4 SelectTable4ByBiz_idTicket_codeCautions_type(int biz_id, String ticket_code, int cautions_type) {
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM Table4 WHERE biz_id=? AND ticket_code=? AND cautions_type=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, biz_id);
+			ps.setString(2, ticket_code);
+			ps.setInt(3, cautions_type);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			
+			rs.next();	
+			Table4 t4 = new Table4();
+			    t4.setId(rs.getInt("id"));
+			    t4.setBiz_id(rs.getInt("biz_id"));
+			    t4.setTicket_code(rs.getString("ticket_code"));
+			    t4.setCautions_type(rs.getInt("cautions_type"));
+			    t4.setCautions_index(rs.getInt("cautions_index"));
+			    t4.setCautions_text(rs.getString("cautions_text"));
+			   
+			
+			rs.close();
+			ps.close();
+			conn.close();
+			return t4;
 		}catch ( Exception e) {
 			System.out.println(e.getMessage());
 			return null;

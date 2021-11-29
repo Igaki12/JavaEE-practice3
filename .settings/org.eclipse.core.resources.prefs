@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/java/servlet/PurchaseServlet.java=UTF-8
 encoding//src/main/java/servlet/RegisterServlet.java=UTF-8
+encoding//src/main/java/servlet/TicketListServlet.java=UTF-8
 encoding//src/main/java/servlet/TicketServlet.java=UTF-8
 encoding//src/main/webapp/style.css=UTF-8

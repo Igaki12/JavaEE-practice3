@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.io.*" import="javax.servlet.http.HttpSession" import="model.Table1" import="java.util.List" import="model.PageProperty"%>
+<%@page import="java.io.*" import="javax.servlet.http.HttpSession" import="model.Table1" import="java.util.List" import="model.PageProperty"
+import="model.Table3" import="model.Table4"%>
 <%File fr = new File("/RegisterServlet");
    String pRegister = fr.getName(); %>
 <%File ft = new File("/TicketServlet");
@@ -8,6 +9,8 @@
   HttpSession sess = request.getSession();
   File fl = new File("/TicketList");
   String pList = fl.getName();
+  File fp = new File("/PurchaseServlet");
+  String pPurchase = fp.getName();
   PageProperty  property = (PageProperty)request.getAttribute("page");
   int number = 10*property.getPage();
   %>
@@ -24,10 +27,15 @@
     <h2>チケット一覧</h2>
     <div class="list-parent">
       <%List<Table1> list1 = (List<Table1>)sess.getAttribute("List-Table1");
+        List<Table3> list3 = (List<Table3>)sess.getAttribute("List-Table3");
+        List<Table4> list4 = (List<Table4>)sess.getAttribute("List-Table4");
+        
         for(int i = number - 10;i< number && i<list1.size();i++){
         	int id = list1.get(i).getId();
         	String code = list1.get(i).getTicket_code();
         	String name = list1.get(i).getTicket_name();
+        	String contents_data2 = list3.get(i).getContents_data();
+        	String cautions_text2 = list4.get(i).getCautions_text();
         %>
       <div class="select-frame">
         <p><%=code %>：<%=name %></p>
@@ -37,12 +45,13 @@
       <div class="easyModal" id="modal<%=i %>">
         <div class="modal-content">
           <div class="modal-header">
-            <h1>Great job 🎉</h1>
+            <h2><%=code %>:<%=name %></h2>
             <span class="modalClose" id="modalClose<%=i %>">×</span>
           </div>
           <div class="modal-body">
-　　         <p>You've just displayed this awesome Modal Window!</p>
-            <p>Let's enjoy learning JavaScript ☺️</p>
+　　         <p><%=contents_data2 %></p>
+            <p><%=cautions_text2 %></p>
+            <input type="button" value="購入へ進む" name="proceed_btn" class="button" onclick="location.href='<%=pPurchase %>?index=<%=i %>'">
           </div>
 　       </div>
       </div>
