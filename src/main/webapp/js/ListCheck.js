@@ -6,7 +6,6 @@ buttonOpen.forEach(function(buttonOpen){
 })
 function modalOpen() {
 	let row = this.name.substr(10);
-	alert(row);
 	let modal = document.getElementById("modal" + row);
   modal.style.display = "block";
 }
@@ -16,7 +15,6 @@ buttonClose.forEach(function(buttonClose){
 })
 function modalClose(){
 	let row = this.name.substr(9);
-	alert (row);
 	let modal = document.getElementById("modal" + row);
 	modal.style.display = "none";
 }
