@@ -13,6 +13,8 @@
    String pDelete = fDelete.getName();
    File fEdit = new File("/TicketEdit");
    String pEdit = fEdit.getName();
+   File fPurchased = new File("/Purchased");
+   String pPurchased = fPurchased.getName();
    
    HttpSession sess = request.getSession();
    %>
@@ -33,7 +35,7 @@ List<Table5> itemlist5 = (List<Table5>)request.getAttribute("itemlist5");
 <body>
 <div class="full-page-purchase">
   <h2>チケット購入</h2>
-  <form class="list-parent" action="?item=<%=itemlist5.size() %>" method="post">
+  <form class="list-parent" action="<%=pPurchased %>?items_number=<%=itemlist5.size() %>" method="post">
   　　<h3>枚数を選択する</h3>
     <%for(Table5 t5: itemlist5){%>
       <div class="list-flex">
@@ -47,6 +49,7 @@ List<Table5> itemlist5 = (List<Table5>)request.getAttribute("itemlist5");
       <h4>合計</h4><p id="sum_price">-</p><p>円</p>
     </div>
     <input type="submit" value="購入する" class="button" onclick="return ckeckSum();">
+    <br>
     <p id="caution_min"><font color="red">チケット最小購入可能枚数は<%=t7.getTicket_min_num() %>です</font>
     <p id="caution_max"><font color="red">チケット最大購入可能枚数は<%=t7.getTicket_max_num() %>です</font>
    　<input id="ticket_max_num"  type="hidden" value="<%=t7.getTicket_max_num() %>"/>

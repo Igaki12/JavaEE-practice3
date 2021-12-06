@@ -80,7 +80,14 @@
         <url-pattern>/PurchaseServlet</url-pattern>
     </servlet-mapping>
     
-    
+    <servlet>
+        <servlet-name>PurchasedServletMapping</servlet-name>
+        <servlet-class>servlet.PurchasedServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PurchasedServletMapping</servlet-name>
+        <url-pattern>/Purchased</url-pattern>
+    </servlet-mapping>
         
     
     

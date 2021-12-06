@@ -16,9 +16,11 @@
   height: auto;
   background-color: rgb(103, 145, 103);
 }
+
 .full-page-purchase > h2{
 	color: white;
 }
+
 
 
 .main-box {
@@ -255,4 +257,10 @@ h4 {
   padding: 10px 20px;
   color: black;
 }
-
+#caution_min{
+	text-align: start;
+	
+}
+#caution_max{
+	text-align: start;
+}

@@ -20,6 +20,32 @@ public class DAO {
 			return null;
 		}
 	}
+	
+	public static int SumBuy_total_numFromTable10WhereTable8Ticket_code(String ticket_code){
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT SUM(buy_num) FROM Table10 WHERE reserv_code = (SELECT reserv_code FROM Table8 WHERE ticket_code=?)";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, ticket_code);
+			rs = ps.executeQuery();
+		
+			int sum = 0;
+			rs.next();
+			sum = rs.getInt("SUM(buy_num)");
+			System.out.println(ps);
+			rs.close();
+			ps.close();
+			conn.close();
+			return sum;
+		}catch(Exception e ) {
+			System.out.println(e.getMessage());
+			return 0;
+		}
+	}
+	
 	public static List<Table2> SelectAllOfTable2() {
 		Connection conn = (Connection)Connect();
 		PreparedStatement ps = null;
@@ -262,6 +288,37 @@ public class DAO {
 		}
 	}
 	
+	public static Table2 SelectTable2ById(int id) {
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM Table2 WHERE id=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			
+			rs.next();
+			Table2 t2 = new Table2();
+			t2.setId(rs.getInt("id"));
+			t2.setBiz_id(rs.getInt("biz_id"));
+			t2.setTicket_code(rs.getString("ticket_code"));
+			t2.setSales_id(rs.getInt("sales_id"));
+			t2.setSales_interval_start(rs.getString("sales_interval_start"));
+			t2.setSales_interval_end(rs.getString("sales_interval_end"));
+			
+			ps.close();
+			rs.close();
+			conn.close();
+			return t2;
+			
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
 	public static List<Table2> SelectListOfTable2ByBiz_idTicket_code(int biz_id,String ticket_code){
 		Connection conn = (Connection)Connect();
 		PreparedStatement ps = null;
