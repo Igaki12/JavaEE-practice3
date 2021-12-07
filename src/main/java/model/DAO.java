@@ -641,6 +641,56 @@ public class DAO {
 		}
 	}
 	
+	public static Table8 SelectTable8ByBiz_idTicket_code(int biz_id,String ticket_code) {
+		
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM Table8 WHERE biz_id=? AND ticket_code=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, biz_id);
+			ps.setString(2, ticket_code);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			
+			rs.next();
+			Table8 t8 = new Table8();
+			t8.setId(rs.getInt("id"));
+			t8.setReserv_code(rs.getString("reserv_code"));
+			t8.setBiz_id(rs.getInt("biz_id"));
+			t8.setTicket_code(rs.getString("ticket_code"));
+			t8.setSales_id(rs.getInt("sales_id"));
+			t8.setUser_id(rs.getInt("user_id"));
+			t8.setTicket_name(rs.getString("ticket_name"));
+			t8.setTickets_kind(rs.getInt("tickets_kind"));
+			t8.setTicket_buyday(rs.getString("ticket_buyday"));
+			t8.setTicket_interval_start(rs.getString("ticket_interval_start"));
+			t8.setTicket_interval_end(rs.getString("ticket_interval_end"));
+			t8.setTicket_start(rs.getString("ticket_start"));
+			t8.setTicket_end(rs.getString("ticket_end"));
+			t8.setTicket_total_num(rs.getInt("ticket_total_num"));
+			t8.setCancel_limit_start(rs.getString("cancel_limit_start"));
+			t8.setCancel_end(rs.getString("cancel_end"));
+			t8.setTicket_status(rs.getInt("tiket_status"));
+			t8.setCreated_at(rs.getString("created_at"));
+			t8.setUpdated_at(rs.getString("updated_at"));
+			t8.setDeleted_at(rs.getString("deleted_at"));
+			
+			
+			rs.close();
+			ps.close();
+			conn.close();
+			return t8;
+					
+		}catch ( Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+		
+	}
+	
 	
 	public static int InsertTable1(Table1 t1) {
 		
@@ -1038,6 +1088,83 @@ public class DAO {
 			}
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
+			return 1;
+		}
+	}
+	
+	public static int InsertTable8to10(Table8 t8, Table9 t9, List<Table10> list10){
+		Connection conn = (Connection)Connect();
+		String sql = null;
+		PreparedStatement ps = null;
+		int flag = 0;
+		
+		try {
+			try {
+				sql = "INSERT INTO Table8(reserv_code,biz_id,ticket_code,sales_id,user_id,ticket_name,tickets_kind,ticket_buyday,ticket_interval_start,ticket_interval_end,ticket_start,ticket_end,ticket_total_num,cancel_limit_start,cancel_end,ticket_status,cancel_end,ticket_status)"
+						+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, t8.getReserv_code());
+				ps.setInt(2, t8.getBiz_id());
+				ps.setString(3, t8.getTicket_code());
+				ps.setInt(4, t8.getSales_id());
+				ps.setInt(5, t8.getUser_id());
+				ps.setInt(6, t8.getTickets_kind());
+				ps.setString(7, t8.getTicket_buyday());
+				ps.setString(8, t8.getTicket_interval_start());
+				ps.setString(9, t8.getTicket_interval_end());
+				ps.setString(10, t8.getTicket_start());
+				ps.setString(11, t8.getTicket_end());
+				ps.setInt(12, t8.getTicket_total_num());
+				ps.setString(13, t8.getCancel_limit_start());
+				ps.setString(14, t8.getCancel_end());
+				ps.setInt(15, t8.getTicket_status());
+				ps.setString(16, t8.getCreated_at());
+				ps.setString(17, t8.getUpdated_at());
+				ps.setString(18, t8.getDeleted_at());
+				int i8 = ps.executeUpdate();
+				
+				sql = "INSERT INTO Table9(reserv_code,svc_name,svc_type,svc_select_type,select_bin_id,usage_time,svc_status,svc_start,svc_end) VALUES (?,?,?,?,?,?,?,?,?,?)";
+				ps.setString(1,t9.getReserv_code());
+				ps.setInt(2, t9.getSvc_id());
+				ps.setString(3, t9.getSvc_name());
+				ps.setInt(4, t9.getSvc_type());
+				ps.setInt(5, t9.getSvc_select_type());
+				ps.setInt(6, t9.getSelect_btn_id());
+				ps.setInt(7, t9.getUsage_time());
+				ps.setInt(8, t9.getSvc_status());
+				ps.setString(9, t9.getSvc_start());
+				ps.setString(10, t9.getSvc_end());
+				int i9 = ps.executeUpdate();
+				
+				int i10 = 0;
+				for(Table10 t10: list10) {
+					sql = "INSERT INTO Table10(reserv_code,type_id,type_name,type_money,buy_num,cancel_money) VALUES (?,?,?,?,?,?)";
+					ps.setString(1, t10.getReserv_code());
+					ps.setInt(2, t10.getType_id());
+					ps.setString(3, t10.getType_name());
+					ps.setInt(4, t10.getType_money());
+					ps.setInt(5, t10.getBuy_num());
+					ps.setInt(6, t10.getCancel_money());
+					i10 = ps.executeUpdate();
+				}
+				
+				
+				
+				conn.commit();
+				System.out.println("Success_InsertTable8-10:" + i8 + "," + i9 + "," + i10);
+				ps.close();
+				conn.close();
+				return 0;
+				
+				
+			}catch(SQLException e) {
+				conn.rollback();
+				System.out.println(e.getMessage());
+				return 1;
+				
+			}
+		}catch(Exception f) {
+			System.out.println(f.getMessage());
 			return 1;
 		}
 	}

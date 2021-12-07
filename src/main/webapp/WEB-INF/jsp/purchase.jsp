@@ -13,8 +13,8 @@
    String pDelete = fDelete.getName();
    File fEdit = new File("/TicketEdit");
    String pEdit = fEdit.getName();
-   File fPurchased = new File("/Purchased");
-   String pPurchased = fPurchased.getName();
+   File fPurchase = new File("/PurchaseServlet");
+   String pPurchase = fPurchase.getName();
    
    HttpSession sess = request.getSession();
    %>
@@ -35,7 +35,7 @@ List<Table5> itemlist5 = (List<Table5>)request.getAttribute("itemlist5");
 <body>
 <div class="full-page-purchase">
   <h2>チケット購入</h2>
-  <form class="list-parent" action="<%=pPurchased %>?items_number=<%=itemlist5.size() %>" method="post">
+  <form class="list-parent" action="<%=pPurchase %>?items_number=<%=itemlist5.size() %>" method="post">
   　　<h3>枚数を選択する</h3>
     <%for(Table5 t5: itemlist5){%>
       <div class="list-flex">

@@ -2,6 +2,8 @@ package model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -48,6 +50,15 @@ public class CalendarCuliculator {
 		String result = model.CalendarCuliculator.DateToString(date);		
 		return result;
 		
+	}
+	public static int UnixtimeNow() {
+		return(int) (System.currentTimeMillis()/1000L);
+	}
+	public static String StrCalendarNow() {
+		Calendar cl = Calendar.getInstance();
+		Date date = model.CalendarCuliculator.CalendarToDate(cl);
+		String str = model.CalendarCuliculator.DateToString(date);
+		return str;
 	}
 	
 	
