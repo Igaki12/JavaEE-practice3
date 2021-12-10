@@ -58,7 +58,7 @@ public class CalendarCuliculator {
 		Calendar cl = Calendar.getInstance();
 		Date date = model.CalendarCuliculator.CalendarToDate(cl);
 		String str = model.CalendarCuliculator.DateToString(date);
-		return str;
+		return str + " 00:00:00";
 	}
 	
 	

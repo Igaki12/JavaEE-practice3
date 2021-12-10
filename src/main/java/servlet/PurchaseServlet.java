@@ -66,13 +66,17 @@ public class PurchaseServlet extends HttpServlet{
 		Table2 t2 = list2.get(Integer.parseInt(index));
 //		t2の存在チェック
 		Table2 t2_origin = model.DAO.SelectTable2ById(t2.getId());
-		if(t2.getBiz_id() != t2_origin.getBiz_id() || t2.getTicket_code() != t2_origin.getTicket_code() || t2.getSales_id() != t2_origin.getSales_id()) {
+		if(t2.getBiz_id() != t2_origin.getBiz_id() || t2.getTicket_code().matches(t2_origin.getTicket_code()) == false || t2.getSales_id() != t2_origin.getSales_id()) {
 			System.out.println("ERROR:Illegal change was found.");
+			System.out.println("t2_origin:" + t2_origin.getBiz_id() + " " + t2_origin.getTicket_code() + " " + t2_origin.getSales_id());
+			System.out.println("t2:" + t2.getBiz_id() + " " + t2.getTicket_code() + " " + t2.getSales_id());
+			response.sendRedirect("TicketServlet");
 		}
 		
 		Table7 t7 = model.DAO.SelectTable7ByBiz_idTicket_codeSales_id(t2.getBiz_id(), t2.getTicket_code(), t2.getSales_id());
 		if(t7 == null) {
 			System.out.println("ERROR:Did not exist in Table7 DB.");
+			response.sendRedirect("TicketServlet");
 		}
 		
 		List<Table5> list5 = model.DAO.SelectListOfTable5ByBiz_idTicket_code(t2.getBiz_id(), t2.getTicket_code());
@@ -109,7 +113,6 @@ public class PurchaseServlet extends HttpServlet{
 		Table8 t8 = new Table8();
 		String unix = String.format("%010d",model.CalendarCuliculator.UnixtimeNow());
 		t8.setReserv_code(unix+"0000100");
-		System.out.println(t8.getReserv_code());
 		t8.setBiz_id(t2.getBiz_id());
 		t8.setTicket_code(t2.getTicket_code());
 		t8.setSales_id(t2.getSales_id());
@@ -122,7 +125,8 @@ public class PurchaseServlet extends HttpServlet{
 		t8.setTicket_start(t7.getTicket_interval_start());
 		t8.setTicket_end(t7.getTicket_interval_end());
 		t8.setTicket_total_num(buy_numSum + t8_before.getTicket_total_num());
-		t8.setCancel_limit_start(t7.getTicket_interval_end());
+		t8.setCancel_limit_start(t7.getTicket_interval_start());
+		t8.setCancel_end(t7.getTicket_interval_end());
 		t8.setTicket_status(0);
 		
 		Table9 t9 = new Table9();
@@ -142,6 +146,7 @@ public class PurchaseServlet extends HttpServlet{
 			Table10 t10 = new Table10();
 			t10.setReserv_code(t8.getReserv_code());
 			t10.setType_id(list5.get(k).getType_id());
+			t10.setType_name(list5.get(k).getType_name());
 			t10.setType_money(list5.get(k).getType_money());
 			t10.setBuy_num(buy_num[k]);
 			t10.setCancel_money(list5.get(k).getCancel_rate());
@@ -151,13 +156,9 @@ public class PurchaseServlet extends HttpServlet{
 		int flag = model.DAO.InsertTable8to10(t8, t9, list10);
 		if(flag != 0) {
 			System.out.println("DAO failed to register tickets data.");
-			response.sendRedirect("/TicketServlet");
+			response.sendRedirect("TicketServlet");
 		}
-		response.sendRedirect("/PurchasedServlet");
-		
-		
-		
-		
+		response.sendRedirect("PurchasedServlet");
 		
 	}
 }

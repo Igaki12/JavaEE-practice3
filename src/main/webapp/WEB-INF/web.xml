@@ -86,7 +86,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>PurchasedServletMapping</servlet-name>
-        <url-pattern>/Purchased</url-pattern>
+        <url-pattern>/PurchasedServlet</url-pattern>
     </servlet-mapping>
         
     

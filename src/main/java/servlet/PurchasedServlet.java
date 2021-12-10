@@ -27,6 +27,7 @@ public class PurchasedServlet extends HttpServlet{
 		
 		request.setCharacterEncoding("UTF-8");
 		
+
 		File f = new File("WEB-INF/jsp/purchased.jsp");
 		String path = f.getPath();
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
