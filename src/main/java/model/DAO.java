@@ -691,6 +691,56 @@ public class DAO {
 		
 	}
 	
+public static Table8 SelectLatestTable8ByBiz_idTicket_code(int biz_id,String ticket_code) {
+		
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM Table8 WHERE biz_id=? AND ticket_code=? ORDER BY id DESC";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, biz_id);
+			ps.setString(2, ticket_code);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			
+			rs.next();
+			Table8 t8 = new Table8();
+			t8.setId(rs.getInt("id"));
+			t8.setReserv_code(rs.getString("reserv_code"));
+			t8.setBiz_id(rs.getInt("biz_id"));
+			t8.setTicket_code(rs.getString("ticket_code"));
+			t8.setSales_id(rs.getInt("sales_id"));
+			t8.setUser_id(rs.getInt("user_id"));
+			t8.setTicket_name(rs.getString("ticket_name"));
+			t8.setTickets_kind(rs.getInt("tickets_kind"));
+			t8.setTicket_buyday(rs.getString("ticket_buyday"));
+			t8.setTicket_interval_start(rs.getString("ticket_interval_start"));
+			t8.setTicket_interval_end(rs.getString("ticket_interval_end"));
+			t8.setTicket_start(rs.getString("ticket_start"));
+			t8.setTicket_end(rs.getString("ticket_end"));
+			t8.setTicket_total_num(rs.getInt("ticket_total_num"));
+			t8.setCancel_limit_start(rs.getString("cancel_limit_start"));
+			t8.setCancel_end(rs.getString("cancel_end"));
+			t8.setTicket_status(rs.getInt("ticket_status"));
+			t8.setCreated_at(rs.getString("created_at"));
+			t8.setUpdated_at(rs.getString("updated_at"));
+			t8.setDeleted_at(rs.getString("deleted_at"));
+			
+			
+			rs.close();
+			ps.close();
+			conn.close();
+			return t8;
+					
+		}catch ( Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+		
+	}
+	
 	
 	public static int InsertTable1(Table1 t1) {
 		

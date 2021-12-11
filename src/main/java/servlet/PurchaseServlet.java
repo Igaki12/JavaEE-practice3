@@ -82,10 +82,10 @@ public class PurchaseServlet extends HttpServlet{
 		List<Table5> list5 = model.DAO.SelectListOfTable5ByBiz_idTicket_code(t2.getBiz_id(), t2.getTicket_code());
 		
 		Table8 t8_before = new Table8();
-		if(null == model.DAO.SelectTable8ByBiz_idTicket_code(t2.getBiz_id(), t2.getTicket_code())) {
+		if(null == model.DAO.SelectLatestTable8ByBiz_idTicket_code(t2.getBiz_id(), t2.getTicket_code())) {
 			t8_before.setTicket_total_num(0);
 		}else {
-			t8_before = model.DAO.SelectTable8ByBiz_idTicket_code(t2.getBiz_id(), t2.getTicket_code());
+			t8_before = model.DAO.SelectLatestTable8ByBiz_idTicket_code(t2.getBiz_id(), t2.getTicket_code());
 		}
 		int[] buy_num = new int[list5.size()];
 		int buy_numSum = 0;
