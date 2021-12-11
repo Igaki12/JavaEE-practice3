@@ -1,8 +1,5 @@
 const sumBox = document.getElementById("sum_price");
 let priceBox = document.querySelectorAll('input[type="number"]');
-let number = 0;
-let sumMoney = 0;
-let sumNumber = 0;
 const ticket_min_num = document.getElementById("ticket_min_num").value;
 const ticket_max_num = document.getElementById("ticket_max_num").value;
 const caution_min = document.getElementById("caution_min");
@@ -46,9 +43,10 @@ function calSum() {
 	}else{
 		caution_max.style.visibility ='hidden';
 	}
-	
+    return sumNumber;	
 }
 function checkSum(){
+	sumNumber = calSum();
 	if(sumNumber < ticket_min_num){
 		alert("チケット最小購入枚数を下回っています");
 		return false;

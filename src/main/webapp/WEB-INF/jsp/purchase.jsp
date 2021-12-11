@@ -48,7 +48,7 @@ List<Table5> itemlist5 = (List<Table5>)request.getAttribute("itemlist5");
     <div class="list-flex">
       <h4>合計</h4><p id="sum_price">-</p><p>円</p>
     </div>
-    <input type="submit" value="購入する" class="button" onclick="return ckeckSum();">
+    <input type="submit" value="購入する" class="button" onclick="return checkSum();">
     <br>
     <p id="caution_min"><font color="red">チケット最小購入可能枚数は<%=t7.getTicket_min_num() %>です</font>
     <p id="caution_max"><font color="red">チケット最大購入可能枚数は<%=t7.getTicket_max_num() %>です</font>
