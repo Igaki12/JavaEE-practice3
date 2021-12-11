@@ -91,11 +91,11 @@ public class PurchaseServlet extends HttpServlet{
 		int buy_numSum = 0;
 		for(int i = 0; i<list5.size(); i++) {
 			try {
-				buy_num[i] = Integer.parseInt(request.getParameter("buy_num" + i));
+				buy_num[i] = Integer.parseInt(request.getParameter("buy_num" + (i+1)));
 			}catch(Exception e) {
 				buy_num[i] = 0;
 			}	
-			if(request.getParameter("buy_num" + i) == null || request.getParameter("buy_num" + i) == "") {
+			if(request.getParameter("buy_num" + (i+1)) == null || request.getParameter("buy_num" + (i+1)) == "") {
 				buy_num[i] = 0;
 			}
 			buy_numSum += buy_num[i];
@@ -150,7 +150,9 @@ public class PurchaseServlet extends HttpServlet{
 			t10.setType_money(list5.get(k).getType_money());
 			t10.setBuy_num(buy_num[k]);
 			t10.setCancel_money(list5.get(k).getCancel_rate());
-			list10.add(t10);
+			if(t10.getBuy_num() != 0) {
+			    list10.add(t10);
+			}
 		}
 		
 		int flag = model.DAO.InsertTable8to10(t8, t9, list10);

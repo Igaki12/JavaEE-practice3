@@ -40,7 +40,7 @@ List<Table5> itemlist5 = (List<Table5>)request.getAttribute("itemlist5");
     <br>
     <br>
     <br>
-    <button class="button" type="button" onclick="Location.href='/<%=pTicket %>'">チケット一覧へ</button>
+    <button class="button" type="button" onclick="location.href='<%=pTicket %>'">チケット一覧へ</button>
   </div>
   　　
 </div>
