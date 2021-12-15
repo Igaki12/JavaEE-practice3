@@ -21,6 +21,35 @@ public class DAO {
 		}
 	}
 	
+	
+	
+	public static int CountUserByLogin_idPassword(String login_id, String password) {
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT COUNT(*) AS num FROM user WHERE login_id=? AND password=?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, login_id);
+			ps.setString(2, password);
+			rs = ps.executeQuery();
+			
+			int num = 0;
+			rs.next();
+			num = rs.getInt("num");
+			System.out.println(ps);
+			
+			rs.close();
+			ps.close();
+			conn.close();
+			return num;
+		}catch(Exception e ) {
+			System.out.println(e.getMessage());
+			return 0;
+		}
+	}
+	
 	public static int SumBuy_total_numFromTable10WhereTable8Ticket_code(String ticket_code){
 		Connection conn = (Connection)Connect();
 		PreparedStatement ps = null;
@@ -45,6 +74,88 @@ public class DAO {
 			return 0;
 		}
 	}
+	
+	public static List<SumPriceList> ViewSumPricesDuringThisMonth(String startDatetime,String endDatetime) {
+		Connection conn = (Connection)Connect();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<SumPriceList> list = new ArrayList<SumPriceList>();
+		String DatetimeNow = model.CalendarCuliculator.StrCalendarNowTime();
+		try {
+			String sql = "SELECT Table8.ticket_code,tickets_kind,ticket_start,ticket_end,type_name,type_money,cancel_money,sum(buy_num) AS buy_num_sum,type_money*sum(buy_num) AS sum_money,ticket_status,svc_start FROM Table10 INNER JOIN Table8 ON Table8.reserv_code=Table10.reserv_code INNER JOIN Table9 ON Table8.reserv_code=Table9.reserv_code WHERE ticket_status=0 AND ticket_end<? AND ticket_end BETWEEN ? AND ? GROUP BY ticket_code,type_name,ticket_status"
+					 + " UNION ALL "
+					 + "SELECT Table8.ticket_code,tickets_kind,ticket_start,ticket_end,type_name,type_money,cancel_money,sum(buy_num) AS buy_num_sum,type_money*sum(buy_num) AS sum_money,ticket_status,svc_start FROM Table10 INNER JOIN Table8 ON Table8.reserv_code=Table10.reserv_code INNER JOIN Table9 ON Table8.reserv_code=Table9.reserv_code WHERE ticket_status=1 AND Table9.svc_start BETWEEN ? AND ? GROUP BY ticket_code,type_name,ticket_status"
+					 + " UNION ALL "
+					 + "SELECT Table8.ticket_code,tickets_kind,ticket_start,ticket_end,type_name,type_money,cancel_money,sum(buy_num) AS buy_num_sum,type_money*sum(buy_num) AS sum_money,ticket_status,svc_start FROM Table10 INNER JOIN Table8 ON Table8.reserv_code=Table10.reserv_code INNER JOIN Table9 ON Table8.reserv_code=Table9.reserv_code WHERE ticket_status=2 AND Table9.svc_start BETWEEN ? AND ? GROUP BY ticket_code,type_name,ticket_status"
+					 + " UNION ALL "
+					 + "SELECT Table8.ticket_code,tickets_kind,ticket_start,ticket_end,type_name,type_money,cancel_money,sum(buy_num) AS buy_num_sum,type_money*sum(buy_num) AS sum_money,ticket_status,svc_start FROM Table10 INNER JOIN Table8 ON Table8.reserv_code=Table10.reserv_code INNER JOIN Table9 ON Table8.reserv_code=Table9.reserv_code WHERE ticket_status=3 AND ticket_end<? AND ticket_end BETWEEN ? AND ? GROUP BY ticket_code,type_name,ticket_status"
+					 + " UNION ALL "
+					 + "SELECT Table8.ticket_code,tickets_kind,ticket_start,ticket_end,type_name,type_money,cancel_money,sum(buy_num) AS buy_num_sum,type_money*sum(buy_num) AS sum_money,ticket_status,svc_start FROM Table10 INNER JOIN Table8 ON Table8.reserv_code=Table10.reserv_code INNER JOIN Table9 ON Table8.reserv_code=Table9.reserv_code WHERE ticket_status=9 AND Table8.updated_at BETWEEN ? AND ? GROUP BY ticket_code,type_name,ticket_status"
+					 + " UNION ALL "
+					 + "SELECT Table8.ticket_code,tickets_kind,ticket_start,ticket_end,type_name,type_money,cancel_money,sum(buy_num) AS buy_num_sum,cancel_money*sum(buy_num) AS sum_money,ticket_status,svc_start FROM Table10 INNER JOIN Table8 ON Table8.reserv_code=Table10.reserv_code INNER JOIN Table9 ON Table8.reserv_code=Table9.reserv_code WHERE ticket_status=10 AND Table8.updated_at BETWEEN ? AND ? GROUP BY ticket_code,type_name,ticket_status"
+					 + " ORDER BY ticket_code,type_name,ticket_status";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, DatetimeNow);
+			ps.setString(2, startDatetime);
+			ps.setString(3, endDatetime);
+			ps.setString(4, startDatetime);
+			ps.setString(5, endDatetime);
+			ps.setString(6, startDatetime);
+			ps.setString(7, endDatetime);
+			ps.setString(8, DatetimeNow);
+			ps.setString(9, startDatetime);
+			ps.setString(10, endDatetime);
+			ps.setString(11, startDatetime);
+			ps.setString(12, endDatetime);
+			ps.setString(13, startDatetime);
+			ps.setString(14, endDatetime);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			SumPriceList sum = new SumPriceList();
+			sum.setTicket_code("");
+			sum.setType_name("");
+			while(rs.next()) {
+				if(rs.getString("ticket_code").equals(sum.getTicket_code()) == false || rs.getString("type_name").equals(sum.getType_name()) == false  ) {
+					list.add(sum);
+				    sum = new SumPriceList();
+				    sum.setTicket_code(rs.getString("ticket_code"));
+				    sum.setTickets_kind(rs.getInt("tickets_kind"));
+				    sum.setTicket_interval_start(rs.getString("ticket_start"));
+				    sum.setTicket_interval_end(rs.getString("ticket_end"));
+				    sum.setType_name(rs.getString("type_name"));
+				    sum.setType_money(rs.getInt("type_money"));
+				    sum.setCancel_money(rs.getInt("cancel_money"));
+				    sum.setBuy_num(0);
+				    sum.setCanceled_num_before(0);
+				    sum.setCanceled_num_at_last_moment(0);
+				    sum.setSum_money(0);
+				    
+				}
+				if(rs.getInt("ticket_status") < 4) {
+					sum.setBuy_num(sum.getBuy_num() + rs.getInt("buy_num_sum"));
+					sum.setSum_money(sum.getSum_money() + rs.getInt("sum_money"));
+				}if(rs.getInt("ticket_status") == 9) {
+					sum.setCanceled_num_before(rs.getInt("buy_num_sum"));
+				}if(rs.getInt("ticket_status") == 10) {
+					sum.setCanceled_num_at_last_moment(rs.getInt("buy_num_sum"));
+					sum.setSum_money(sum.getSum_money() + rs.getInt("sum_money"));
+				}
+				
+			}
+			list.add(sum);
+			list.remove(0);
+			rs.close();
+			ps.close();
+			conn.close();
+			return list;
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+		
+	}
+	
 	
 	public static List<Table2> SelectAllOfTable2() {
 		Connection conn = (Connection)Connect();
@@ -691,14 +802,14 @@ public class DAO {
 		
 	}
 	
-public static Table8 SelectLatestTable8ByBiz_idTicket_code(int biz_id,String ticket_code) {
+public static int SumTicket_total_numOfTable8WhereBiz_idTicket_code(int biz_id,String ticket_code) {
 		
 		Connection conn = (Connection)Connect();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM Table8 WHERE biz_id=? AND ticket_code=? ORDER BY id DESC";
+			String sql = "SELECT SUM(ticket_total_num) AS total FROM Table8 WHERE biz_id=? AND ticket_code=?";
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, biz_id);
 			ps.setString(2, ticket_code);
@@ -706,40 +817,50 @@ public static Table8 SelectLatestTable8ByBiz_idTicket_code(int biz_id,String tic
 			rs = ps.executeQuery();
 			
 			rs.next();
-			Table8 t8 = new Table8();
-			t8.setId(rs.getInt("id"));
-			t8.setReserv_code(rs.getString("reserv_code"));
-			t8.setBiz_id(rs.getInt("biz_id"));
-			t8.setTicket_code(rs.getString("ticket_code"));
-			t8.setSales_id(rs.getInt("sales_id"));
-			t8.setUser_id(rs.getInt("user_id"));
-			t8.setTicket_name(rs.getString("ticket_name"));
-			t8.setTickets_kind(rs.getInt("tickets_kind"));
-			t8.setTicket_buyday(rs.getString("ticket_buyday"));
-			t8.setTicket_interval_start(rs.getString("ticket_interval_start"));
-			t8.setTicket_interval_end(rs.getString("ticket_interval_end"));
-			t8.setTicket_start(rs.getString("ticket_start"));
-			t8.setTicket_end(rs.getString("ticket_end"));
-			t8.setTicket_total_num(rs.getInt("ticket_total_num"));
-			t8.setCancel_limit_start(rs.getString("cancel_limit_start"));
-			t8.setCancel_end(rs.getString("cancel_end"));
-			t8.setTicket_status(rs.getInt("ticket_status"));
-			t8.setCreated_at(rs.getString("created_at"));
-			t8.setUpdated_at(rs.getString("updated_at"));
-			t8.setDeleted_at(rs.getString("deleted_at"));
+			int ticket_total_num = rs.getInt("total");
 			
 			
 			rs.close();
 			ps.close();
 			conn.close();
-			return t8;
+			return ticket_total_num;
 					
 		}catch ( Exception e) {
 			System.out.println(e.getMessage());
-			return null;
+			return 0;
 		}
 		
 	}
+
+    public static int InsertUser(User user) {
+    	Connection conn = (Connection)Connect();
+    	PreparedStatement ps = null;
+    	try {
+    		try {
+    			String sql = "INSERT INTO user(login_id,password) VALUES(?,?)";
+    			ps = conn.prepareStatement(sql);
+    			ps.setString(1, user.getLogin_id());
+    			ps.setString(2, user.getPassword());
+    			System.out.println(ps);
+    			int i = ps.executeUpdate();
+    			conn.commit();
+    			System.out.println("Success_InsertUser" + i);
+    			
+    			ps.close();
+    			conn.close();
+    			return 0;
+    			
+    			
+    		}catch(SQLException e) {
+    			System.out.println(e.getMessage());
+    			conn.rollback();
+    			return 1;
+    		}
+    	}catch(Exception f) {
+    		System.out.println(f.getMessage());
+    		return 1;
+    	}
+    }
 	
 	
 	public static int InsertTable1(Table1 t1) {
@@ -963,7 +1084,7 @@ public static Table8 SelectLatestTable8ByBiz_idTicket_code(int biz_id,String tic
 		
 		try {
 			try {
-				sql = "INSERT INTO Table8(reserv_code,biz_id,ticket_code,sales_id,user_id,ticket_name,tickets_kind,ticket_buyday,ticket_interval_start,ticket_interval_end,ticket_start,ticket_end,ticket_total_num,cancel_limit_start,cancel_end,ticket_status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				sql = "INSERT INTO Table8(reserv_code,biz_id,ticket_code,sales_id,user_id,ticket_name,tickets_kind,ticket_buyday,ticket_interval_start,ticket_interval_end,ticket_start,ticket_end,ticket_total_num,cancel_limit_start,cancel_end,ticket_status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, t8.getReserv_code());
 				ps.setInt(2, t8.getBiz_id());
@@ -981,10 +1102,12 @@ public static Table8 SelectLatestTable8ByBiz_idTicket_code(int biz_id,String tic
 				ps.setString(14, t8.getCancel_limit_start());
 				ps.setString(15, t8.getCancel_end());
 				ps.setInt(16, t8.getTicket_status());
+				ps.setString(17, t8.getCreated_at());
+				ps.setString(18, t8.getUpdated_at());
 				System.out.println(ps);
 				int i8 = ps.executeUpdate();
 				
-				sql = "INSERT INTO Table9(reserv_code,svc_id,svc_name,svc_type,svc_select_type,select_btn_id,usage_time,svc_status,svc_start,svc_end) VALUES (?,?,?,?,?,?,?,?,?,?)";
+				sql = "INSERT INTO Table9(reserv_code,svc_id,svc_name,svc_type,svc_select_type,select_btn_id,usage_time,svc_status,svc_start,svc_end,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1,t9.getReserv_code());
 				ps.setInt(2, t9.getSvc_id());
@@ -996,12 +1119,14 @@ public static Table8 SelectLatestTable8ByBiz_idTicket_code(int biz_id,String tic
 				ps.setInt(8, t9.getSvc_status());
 				ps.setString(9, t9.getSvc_start());
 				ps.setString(10, t9.getSvc_end());
+				ps.setString(11, t9.getCreated_at());
+				ps.setString(12, t9.getUpdated_at());
 				System.out.println(ps);
 				int i9 = ps.executeUpdate();
 				
 				int i10 = 0;
 				for(Table10 t10: list10) {
-					sql = "INSERT INTO Table10(reserv_code,type_id,type_name,type_money,buy_num,cancel_money) VALUES (?,?,?,?,?,?)";
+					sql = "INSERT INTO Table10(reserv_code,type_id,type_name,type_money,buy_num,cancel_money,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?)";
 					ps = conn.prepareStatement(sql);
 					ps.setString(1, t10.getReserv_code());
 					ps.setInt(2, t10.getType_id());
@@ -1009,6 +1134,8 @@ public static Table8 SelectLatestTable8ByBiz_idTicket_code(int biz_id,String tic
 					ps.setInt(4, t10.getType_money());
 					ps.setInt(5, t10.getBuy_num());
 					ps.setInt(6, t10.getCancel_money());
+					ps.setString(7, t10.getCreated_at());
+					ps.setString(8, t10.getUpdated_at());
 					System.out.println(ps);
 					i10 += ps.executeUpdate();
 				}

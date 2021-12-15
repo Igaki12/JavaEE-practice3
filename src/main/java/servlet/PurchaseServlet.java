@@ -81,12 +81,9 @@ public class PurchaseServlet extends HttpServlet{
 		
 		List<Table5> list5 = model.DAO.SelectListOfTable5ByBiz_idTicket_code(t2.getBiz_id(), t2.getTicket_code());
 		
-		Table8 t8_before = new Table8();
-		if(null == model.DAO.SelectLatestTable8ByBiz_idTicket_code(t2.getBiz_id(), t2.getTicket_code())) {
-			t8_before.setTicket_total_num(0);
-		}else {
-			t8_before = model.DAO.SelectLatestTable8ByBiz_idTicket_code(t2.getBiz_id(), t2.getTicket_code());
-		}
+		int total_before = model.DAO.SumTicket_total_numOfTable8WhereBiz_idTicket_code(t2.getBiz_id(), t2.getTicket_code());
+		System.out.println("total_before:" + total_before);
+		
 		int[] buy_num = new int[list5.size()];
 		int buy_numSum = 0;
 		for(int i = 0; i<list5.size(); i++) {
@@ -101,7 +98,7 @@ public class PurchaseServlet extends HttpServlet{
 			buy_numSum += buy_num[i];
 		}
 //		枚数チェック
-		if(buy_numSum > t7.getTicket_num() - t8_before.getTicket_total_num()) {
+		if(buy_numSum > t7.getTicket_num() - total_before ) {
 			System.out.println("ERROR:You chose too many tickets.");
 		}
 		
@@ -124,10 +121,13 @@ public class PurchaseServlet extends HttpServlet{
 		t8.setTicket_interval_end(t7.getTicket_interval_end());
 		t8.setTicket_start(t7.getTicket_interval_start());
 		t8.setTicket_end(t7.getTicket_interval_end());
-		t8.setTicket_total_num(buy_numSum + t8_before.getTicket_total_num());
+		t8.setTicket_total_num(buy_numSum);
+//		ticket_total_numはbuy_numSumでいい。
 		t8.setCancel_limit_start(t7.getTicket_interval_start());
 		t8.setCancel_end(t7.getTicket_interval_end());
 		t8.setTicket_status(0);
+		t8.setCreated_at(model.CalendarCuliculator.StrCalendarNowTime());
+		t8.setUpdated_at(model.CalendarCuliculator.StrCalendarNowTime());
 		
 		Table9 t9 = new Table9();
 		t9.setReserv_code(t8.getReserv_code());
@@ -140,6 +140,8 @@ public class PurchaseServlet extends HttpServlet{
 		t9.setSvc_status(0);
 		t9.setSvc_start(null);
 		t9.setSvc_end(null);
+		t9.setCreated_at(model.CalendarCuliculator.StrCalendarNowTime());
+		t9.setUpdated_at(model.CalendarCuliculator.StrCalendarNowTime());
 		
 		List<Table10> list10 = new ArrayList<Table10>();
 		for(int k=0; k<list5.size();k++) {
@@ -150,6 +152,8 @@ public class PurchaseServlet extends HttpServlet{
 			t10.setType_money(list5.get(k).getType_money());
 			t10.setBuy_num(buy_num[k]);
 			t10.setCancel_money(list5.get(k).getCancel_rate());
+			t10.setCreated_at(model.CalendarCuliculator.StrCalendarNowTime());
+			t10.setUpdated_at(model.CalendarCuliculator.StrCalendarNowTime());
 			if(t10.getBuy_num() != 0) {
 			    list10.add(t10);
 			}

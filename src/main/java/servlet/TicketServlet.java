@@ -33,7 +33,6 @@ public class TicketServlet extends HttpServlet {
 		}
 		property.setPage(Integer.parseInt(page));
 		String kind = request.getParameter("kind");
-		System.out.println(kind);
 		if(kind == null || kind == "") {
 			kind ="1";
 		}
@@ -53,7 +52,9 @@ public class TicketServlet extends HttpServlet {
 			file = new File("/TicketList");
 		}else if(kind.equals("4")) {
 			
-			file = new File("/WEB-INF/jsp/tickets.jsp");
+			request.setAttribute("page", page);
+			request.setAttribute("kind", kind);
+			file = new File("/TicketBuyNum");
 		}else {
 			List<Table1> list1 = model.DAO.SelectAllOfTable1();
 //			最初期のテストでTable5上のデータが存在しないチケットがあるので除外していたが、今は廃止

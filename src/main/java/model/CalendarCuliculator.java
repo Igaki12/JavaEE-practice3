@@ -60,7 +60,30 @@ public class CalendarCuliculator {
 		String str = model.CalendarCuliculator.DateToString(date);
 		return str + " 00:00:00";
 	}
-	
-	
-	
+
+	public static String StrCalendarNowTime() {
+		Calendar cl = Calendar.getInstance();
+		Date date = cl.getTime();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String str = format.format(date);
+		return str;
+		
+		
+	}
+	public static String DatetimeThisMonthFirstDay() {
+		Calendar cl = Calendar.getInstance();
+		Date date = cl.getTime();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+		String str = format.format(date) + "-01 00:00:00";
+		return str;
+		
+	}
+	public static String DatetimeThisMonthLastDay() {
+		Calendar cl = Calendar.getInstance();
+		int LastDayOfMonth = cl.getActualMaximum(Calendar.DATE);
+		Date date = cl.getTime();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+		String str = format.format(date) + "-" + LastDayOfMonth + " 23:59:59";
+		return str;
+	}
 }

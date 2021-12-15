@@ -88,6 +88,33 @@
         <servlet-name>PurchasedServletMapping</servlet-name>
         <url-pattern>/PurchasedServlet</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LoginServletMapping</servlet-name>
+        <servlet-class>servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServletMapping</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>NewAccountServletMapping</servlet-name>
+        <servlet-class>servlet.NewAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewAccountServletMapping</servlet-name>
+        <url-pattern>/NewAccount</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>TicketBuyNumServletMapping</servlet-name>
+        <servlet-class>servlet.TicketBuyNumServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TicketBuyNumServletMapping</servlet-name>
+        <url-pattern>/TicketBuyNum</url-pattern>
+    </servlet-mapping>
         
     
     

@@ -16,6 +16,12 @@
   height: auto;
   background-color: rgb(103, 145, 103);
 }
+.full-page-login{
+	width: 100vw;
+	min-height:100vh;
+	height:auto;
+	background-color: rgb(253, 159, 122);
+}
 
 .full-page-purchase > h2{
 	color: white;

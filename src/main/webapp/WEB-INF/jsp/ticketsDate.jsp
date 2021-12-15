@@ -33,7 +33,8 @@ int number = 10*property.getPage();
       <div class="side-menu">
         <a href="<%=pTicket %>?kind=1&page=<%=property.getPage()%>">チケット登録</a><br>
         <p>期間販売登録</p>
-        <a href="<%=pTicket %>?kind=3&page=<%=property.getPage()%>">チケット一覧</a>
+        <a href="<%=pTicket %>?kind=3&page=<%=property.getPage()%>">チケット一覧</a><br>
+        <a href="<%=pTicket %>?kind=4&page=<%=property.getPage()%>">売上管理</a>
       </div>
       <section>
         <form action="<%=pDate %>" class="register-button-flex" method="get">
